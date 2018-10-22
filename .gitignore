@@ -1,2 +1,5 @@
 /node_modules
-
+/client/node_modules
+/data/__pycache__
+/dev/bin
+/server/node_modules
