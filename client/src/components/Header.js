@@ -3,16 +3,19 @@ import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import logo from '../assets/logo.png';
 
 const style = {
+	AppBar: {
+		position: 'static'
+	},
 	img: {
     marginLeft: 'auto',
-    marginRight: 'auto',
+		marginRight: 'auto',
 	}
 }
 
-const Navbar = () => {
+const Header = () => {
 	return (
 		<div>
-    	<AppBar position="static">
+    	<AppBar style={style.AppBar}>
       	<Toolbar>
 					{/* <Typography>
 						Dashboard
@@ -24,4 +27,4 @@ const Navbar = () => {
 	);
 }
 
-export default Navbar;
+export default Header;
