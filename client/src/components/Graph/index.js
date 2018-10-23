@@ -10,19 +10,18 @@ const style = {
 		padding: 0,
 	},
 	svg: {
-		width: '50%',
-		height: '50%',
-		// position: 'absolute',
+		width: '100%',
+		height: '100%',
 		backgroundColor: '#FAFAFA',
 		borderStyle: 'solid',
 		borderWidth: 2,
-		borderRadius: 8
+		borderRadius: 6
 	},
 	grid: {
 		fill: null,
 		stroke: '#D0D0D0',
-		strokeDasharray: 5,
-		strokeWidth: 2,
+		strokeDasharray: 2,
+		strokeWidth: 1,
 	}
 };
 
@@ -45,7 +44,6 @@ class Graph extends React.Component {
 				height: document.getElementsByTagName('svg')[0].clientHeight,
 				width: document.getElementsByTagName('svg')[0].clientWidth
 			}});
-		const grid = this.renderGrid();
 	}
 
 	renderGrid() {
@@ -56,12 +54,12 @@ class Graph extends React.Component {
 
 			return lines.map((length, index) =>
 				<line
+					key={(index * 1)}
 					style={style.grid}
 					x1={length} x2={length}
 					y1={'0%'} y2={'100%'}
 				/>
 			);
-
 		}
 
 		const h = () => {
@@ -71,6 +69,7 @@ class Graph extends React.Component {
 
 			return lines.map((length, index) =>
 				<line
+					key={(index * 2)}
 					style={style.grid}
 					x1={'0%'} x2={'100%'}
 					y1={length} y2={length}
@@ -90,6 +89,7 @@ class Graph extends React.Component {
 					<g style={style.grid}>
 						{grid}
   				</g>
+					<Point/>
 				</svg>
 			</div>
 		);

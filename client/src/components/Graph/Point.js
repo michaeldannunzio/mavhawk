@@ -1,19 +1,37 @@
 import React from 'react';
 import d3 from 'd3';
 
-const style = {
-	circle: {
-		fill: 'red',
-		cx: 50,
-		cy: 50,
-		r: 2.5
+class Point extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {};
+		this.style = {
+			fill: 'red',
+			cx: 180,
+			cy: 90,
+			r: 5
+		};
 	}
-};
 
-const Point = (props) => {
-	return (
-		<circle style={style.circle}/>
-	);
+	componentDidMount() {}
+
+	onMouseEnter() {
+		this.style.fill = 'red';
+	}
+
+	onMouseLeave() {
+		this.style.fill = 'blue'
+	}
+
+	render() {
+		return (
+			<circle
+				style={this.style}
+				onMouseEnter={this.onMouseEnter()}
+				onMouseLeave={this.onMouseLeave()}
+			/>
+		);
+	}
 }
 
 export default Point;
