@@ -1,5 +1,4 @@
 import React from 'react';
-import d3 from 'd3';
 
 class Point extends React.Component {
 	constructor(props) {
