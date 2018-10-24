@@ -4,31 +4,45 @@ import d3 from 'd3';
 class Point extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
-		this.style = {
-			fill: 'red',
+
+		// Alias for style
+		this.state = {
+			fill: 'blue',
 			cx: 180,
 			cy: 90,
 			r: 5
 		};
+
+		this.onMouseEnter = this.onMouseEnter.bind(this);
+		this.onMouseLeave = this.onMouseLeave.bind(this);
+		this.onClick = this.onClick.bind(this);
 	}
 
-	componentDidMount() {}
-
 	onMouseEnter() {
-		this.style.fill = 'red';
+		this.setState({
+			fill: 'red',
+			r: 6
+		});
 	}
 
 	onMouseLeave() {
-		this.style.fill = 'blue'
+		this.setState({
+			fill: 'blue',
+			r: 4
+		});
+	}
+
+	onClick() {
+		alert('you\'ve been hacked');
 	}
 
 	render() {
 		return (
 			<circle
-				style={this.style}
-				onMouseEnter={this.onMouseEnter()}
-				onMouseLeave={this.onMouseLeave()}
+				style={this.state}
+				onMouseEnter={this.onMouseEnter}
+				onMouseLeave={this.onMouseLeave}
+				onClick={this.onClick}
 			/>
 		);
 	}

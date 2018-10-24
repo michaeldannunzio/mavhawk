@@ -1,17 +1,24 @@
 import React from 'react';
+import { Paper } from '@material-ui/core';
 import Point from './Point';
 import d3 from 'd3';
 
 const style = {
 	root: {
-		height: '50%',
+		height: '100%',
 		width: '50%',
 		margin: '25%',
-		padding: 0,
+		// padding: 0,
+	},
+	Paper: {
+		height: '100%',
+		width: '100%',
 	},
 	svg: {
-		width: '100%',
-		height: '100%',
+		width: '98%',
+		height: '90%',
+		margin: '10%',
+
 		backgroundColor: '#FAFAFA',
 		borderStyle: 'solid',
 		borderWidth: 2,
@@ -36,9 +43,25 @@ class Graph extends React.Component {
 				width: null
 			}
 		};
+
+		this.onResize = this.onResize.bind(this);
 	}
 
 	componentDidMount() {
+		this.setState({
+			size: {
+				height: document.getElementsByTagName('svg')[0].clientHeight,
+				width: document.getElementsByTagName('svg')[0].clientWidth
+			}});
+
+			window.addEventListener('resize', this.onResize.bind(this));
+	}
+
+	componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize.bind(this));
+  }
+
+	onResize() {
 		this.setState({
 			size: {
 				height: document.getElementsByTagName('svg')[0].clientHeight,
@@ -54,7 +77,6 @@ class Graph extends React.Component {
 
 			return lines.map((length, index) =>
 				<line
-					key={(index * 1)}
 					style={style.grid}
 					x1={length} x2={length}
 					y1={'0%'} y2={'100%'}
@@ -69,7 +91,6 @@ class Graph extends React.Component {
 
 			return lines.map((length, index) =>
 				<line
-					key={(index * 2)}
 					style={style.grid}
 					x1={'0%'} x2={'100%'}
 					y1={length} y2={length}
@@ -85,12 +106,14 @@ class Graph extends React.Component {
 
 		return (
 			<div style={style.root}>
-				<svg style={style.svg}>
-					<g style={style.grid}>
-						{grid}
-  				</g>
-					<Point/>
-				</svg>
+				<Paper style={style.Paper}>
+					<svg style={style.svg}>
+						<g style={style.grid}>
+							{grid}
+						</g>
+						<Point/>
+					</svg>
+				</Paper>
 			</div>
 		);
 	}

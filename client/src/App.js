@@ -10,8 +10,8 @@ class App extends React.Component {
     return (
       <div>
         <MuiThemeProvider theme={Theme}>
-          <Header/>
           {/* <Menu/> */}
+          <Header/>
           <Graph/>
         </MuiThemeProvider>
       </div>
