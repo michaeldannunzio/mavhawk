@@ -20,6 +20,7 @@ class App extends React.Component {
         <MuiThemeProvider theme={Theme}>
           {/* <Menu/> */}
           <Header/>
+          <Wing/>
           {/* <Graph/> */}
         </MuiThemeProvider>
       </div>

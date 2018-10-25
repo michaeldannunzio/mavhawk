@@ -35,8 +35,6 @@ const style = {
 	}
 };
 
-const data = [1, 2, 3, 4, 5];
-
 class Graph extends React.Component {
 	constructor(props) {
 		super(props);
@@ -111,14 +109,12 @@ class Graph extends React.Component {
 	}
 
 	render() {
-		const grid = this.renderGrid();
-
 		return (
 			<div style={style.parent}>
 				<Paper style={style.Paper}>
 					<svg className='graph' style={style.svg}>
 						<g style={style.grid}>
-							{grid}
+							{this.renderGrid()}
 						</g>
 						<Point/>
 					</svg>

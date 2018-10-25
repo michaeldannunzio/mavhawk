@@ -5,13 +5,17 @@ class Cell extends React.Component {
 		super(props);
 		this.state = {
 			selected: false,
-			id: this.props.id,
+			id: this.props.shape.id,
+			location: {
+				points: this.props.location.points,
+				coords: this.props.location.coords
+			},
 			style: {
-				points: this.props.points,
-				fill: this.props.fill,
-				stroke: this.props.stroke,
-				strokeWidth: 2
+				fill: this.props.shape.fill,
+				stroke: this.props.shape.stroke,
+				strokeWidth: 4
 			}
+			
 		};
 
 		this.onMouseEnter = this.onMouseEnter.bind(this);
@@ -19,41 +23,74 @@ class Cell extends React.Component {
 		this.onClick = this.onClick.bind(this);
 	}
 
+	componentWillReceiveProps(props) {
+		this.setState({
+			id: props.shape.id,
+			location: {
+				points: props.location.points,
+				coords: props.location.coords
+			},
+			style: {
+				fill: props.shape.fill,
+				stroke: props.shape.stroke
+			}
+		});
+	}
+
 	onMouseEnter() {
-		if (this.state.selected !== true)
+		if (!this.state.selected)
 			this.setState({
 				style: {
-					fill: `#${(parseInt(this.state.fill.replace('#', ''), 16) + 13107).toString(16)}`,
-					stroke: `#${(parseInt(this.state.fill.replace('#', ''), 16) + 13107).toString(16)}`,
-					strokeWidth: (this.state.strokeWidth + 2)
+					fill: `#${(parseInt(this.state.style.fill.replace('#', ''), 16) - 13107).toString(16)}`,
+					stroke: `#${(parseInt(this.state.style.stroke.replace('#', ''), 16) - 13107).toString(16)}`,
+					strokeWidth: (this.state.style.strokeWidth + 1)
 			}});
 	}
 
 	onMouseLeave() {
-		if (this.state.selected !== true)
-		this.setState({
-			style: {
-				fill: `#${(parseInt(this.state.fill.replace('#', ''), 16) - 13107).toString(16)}`,
-				stroke: `#${(parseInt(this.state.fill.replace('#', ''), 16) - 13107).toString(16)}`,
-				strokeWidth: (this.state.strokeWidth - 2)
-		}});
+		if (!this.state.selected)
+			this.setState({
+				style: {
+					fill: `#${(parseInt(this.state.style.fill.replace('#', ''), 16) + 13107).toString(16)}`,
+					stroke: `#${(parseInt(this.state.style.stroke.replace('#', ''), 16) + 13107).toString(16)}`,
+					strokeWidth: (this.state.style.strokeWidth - 1)
+			}});
 	}
 
 	onClick() {
-		this.setState({
-			style: {
-				selected: !(this.state.selected),
-				fill: `#${(parseInt(this.state.fill.replace('#', ''), 16) - 13107).toString(16)}`,
-				stroke: `#${(parseInt(this.state.fill.replace('#', ''), 16) - 13107).toString(16)}`,
-				strokeWidth: (this.state.strokeWidth + 2)
-		}});
+		if (!this.state.selected)
+			this.setState({
+				selected: (!this.state.selected)
+			});
+		
+		else
+			this.setState({
+				selected: (!this.state.selected)
+			});
 	}
 
 	render() {
 		return (
-			<polygon style={this.state.style}/>
+			<React.Fragment>
+				<polygon
+					points={this.state.location.points}
+					// points={this.props.location.points}
+					style={this.state.style}
+					onMouseEnter={this.onMouseEnter}
+					onMouseLeave={this.onMouseLeave}
+					onClick={this.onClick}
+					strokeWidth='4'
+				/>
+				<text
+					x={this.state.location.coords.x}
+					y={this.state.location.coords.y}
+					fill='#000000'
+				>
+					{this.state.id}
+				</text>
+			</React.Fragment>
 		);
 	}
 }
-
-export default Cell;
+		
+		export default Cell;
