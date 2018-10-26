@@ -4,10 +4,11 @@ import Cell from './Cell';
 
 const style = {
 	parent: {
-		height: '100%',
+		height: '60%',
 		width: '30%',
 		margin: '2%',
-		padding: 0
+		padding: 0,
+		float: 'left'
 	},
 	Paper: {
 		height: '100%',

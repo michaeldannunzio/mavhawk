@@ -11,19 +11,18 @@ const style = {
     height: '100%',
     width: '100%'
   }
-}
+};
 
 class App extends React.Component {
   render() {
     return (
-      <div style={style.App}>
+      // <div style={style.App}>
         <MuiThemeProvider theme={Theme}>
-          {/* <Menu/> */}
-          <Header/>
+          <Menu/>
+          <Graph/>
           <Wing/>
-          {/* <Graph/> */}
         </MuiThemeProvider>
-      </div>
+      // </div>
     );
   }
 }

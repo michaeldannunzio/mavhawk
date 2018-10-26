@@ -4,7 +4,7 @@ import logo from '../assets/logo.png';
 
 const style = {
 	AppBar: {
-		position: 'static'
+		position: 'static',
 	},
 	img: {
     marginLeft: 'auto',

@@ -6,23 +6,21 @@ const style = {
 	parent: {
 		height: '100%',
 		width: '60%',
-		// margin: '20%',
-		margin: 20,
-		padding: 0
+		margin: '2%',
+		padding: 0,
 	},
 	Paper: {
 		height: '100%',
 		width: '100%',
-		// padding: '5% 10% 10% 5%'
-		padding: '2%'
+		padding: '1%'
 	},
 	svg: {
 		width: '100%',
 		height: '100%',
 		backgroundColor: '#FAFAFA',
 		borderStyle: 'solid',
-		borderWidth: 2,
-		borderRadius: 6
+		borderWidth: 1,
+		borderRadius: 4
 	},
 	grid: {
 		fill: null,
