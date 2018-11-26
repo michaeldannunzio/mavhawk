@@ -3,15 +3,8 @@ import { Paper } from '@material-ui/core';
 import Point from './Point';
 
 const style = {
-	parent: {
-		height: '100%',
-		width: '60%',
-		margin: '2%',
-		padding: 0,
-	},
 	Paper: {
-		height: '100%',
-		width: '100%',
+		width: '80%',
 		padding: '1%'
 	},
 	svg: {
@@ -38,8 +31,14 @@ class Graph extends React.Component {
 		super(props);
 		this.state = {
 			size: {
-				height: null,
-				width: null
+				paper: {
+					height: null,
+					width: null
+				},
+				svg: {
+					height: null,
+					width: null
+				}
 			}
 		};
 
@@ -49,9 +48,14 @@ class Graph extends React.Component {
 	componentDidMount() {
 		this.setState({
 			size: {
-				height: document.getElementsByClassName('graph')[0].clientHeight,
-				width: document.getElementsByClassName('graph')[0].clientWidth
-			}});
+				paper: {
+					height: document.getElementsByClassName('graph-paper')[0].clientHeight,
+					width: document.getElementsByClassName('graph-paper')[0].clientWidth
+				},
+				svg: {
+				height: document.getElementsByClassName('graph-svg')[0].clientHeight,
+				width: document.getElementsByClassName('graph-svg')[0].clientWidth
+			}}});
 
 			window.addEventListener('resize', this.onResize.bind(this));
 	}
@@ -63,9 +67,14 @@ class Graph extends React.Component {
 	onResize() {
 		this.setState({
 			size: {
-				height: document.getElementsByClassName('graph')[0].clientHeight,
-				width: document.getElementsByClassName('graph')[0].clientWidth
-			}});
+				paper: {
+					height: document.getElementsByClassName('graph-paper')[0].clientHeight,
+					width: document.getElementsByClassName('graph-paper')[0].clientWidth
+				},
+				svg: {
+				height: document.getElementsByClassName('graph-svg')[0].clientHeight,
+				width: document.getElementsByClassName('graph-svg')[0].clientWidth
+			}}});
 	}
 
 	renderGrid() {
@@ -73,7 +82,7 @@ class Graph extends React.Component {
 
 		const v = () => {
 			var lines = [];
-			for (var i = incr; i < this.state.size.width; i += incr)
+			for (var i = incr; i < this.state.size.svg.width; i += incr)
 				lines.push(i);
 
 			return lines.map((length, index) =>
@@ -87,7 +96,7 @@ class Graph extends React.Component {
 
 		const h = () => {
 			var lines = [];
-			for (var i = incr; i < this.state.size.height; i += incr)
+			for (var i = incr; i < this.state.size.svg.height; i += incr)
 				lines.push(i);
 
 			return lines.map((length, index) =>
@@ -108,9 +117,9 @@ class Graph extends React.Component {
 
 	render() {
 		return (
-			<div style={style.parent}>
-				<Paper style={style.Paper}>
-					<svg className='graph' style={style.svg}>
+			<div className='graph-wrapper'>
+				<Paper className='graph-paper' style={style.Paper} height={(this.state.size.paper.height * 0.60)} padding='1%'>
+					<svg className='graph-svg' style={style.svg}>
 						<g style={style.grid}>
 							{this.renderGrid()}
 						</g>
