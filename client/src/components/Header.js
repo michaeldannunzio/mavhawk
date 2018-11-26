@@ -1,22 +1,22 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Toolbar } from '@material-ui/core';
 import logo from '../assets/logo.png';
 
 const style = {
+	AppBar: {
+		position: 'static',
+	},
 	img: {
     marginLeft: 'auto',
-    marginRight: 'auto',
+		marginRight: 'auto',
 	}
 }
 
-const Navbar = () => {
+const Header = () => {
 	return (
 		<div>
-    	<AppBar position="static">
+    	<AppBar style={style.AppBar}>
       	<Toolbar>
-					{/* <Typography>
-						Dashboard
-					</Typography> */}
 					<img src={logo} alt='MavHawk' style={style.img}/>
       	</Toolbar>
     	</AppBar>
@@ -24,4 +24,4 @@ const Navbar = () => {
 	);
 }
 
-export default Navbar;
+export default Header;

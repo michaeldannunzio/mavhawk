@@ -1,18 +1,20 @@
 import React from 'react';
-import Navbar from './components/Navbar';
-import Chart from './components/Chart';
+import Menu from './components/Menu';
+import Header from './components/Header';
+// import Wing from './components/Wing';
+import Graph from './components/Graph';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import Theme from './styles/Theme';
 
 class App extends React.Component {
   render() {
     return (
-      <div>
         <MuiThemeProvider theme={Theme}>
-          <Navbar/>
-          <Chart/>
+          <Menu/>
+          <Header/>
+          <Graph/>
+          {/* <Wing/> */}
         </MuiThemeProvider>
-      </div>
     );
   }
 }
