@@ -7,3 +7,7 @@
 /client/package-lock.json
 /server/package-lock.json
 /.vscode
+*/*/__pycache__/
+*/*/*/__pycache__/
+*/*/*.pyc
+*/*/*/*.pyc
