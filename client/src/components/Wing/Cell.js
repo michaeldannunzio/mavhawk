@@ -1,5 +1,17 @@
+/* Library imports */
 import React from 'react';
+import PropTypes from 'prop-types';
 
+/* Source imports */
+import configure from '../configure';
+
+
+/* Component styles */
+const styles = (theme) => ({
+	cell: {},
+});
+
+/* Component definition */
 class Cell extends React.Component {
 	constructor(props) {
 		super(props);
@@ -15,7 +27,6 @@ class Cell extends React.Component {
 				stroke: this.props.shape.stroke,
 				strokeWidth: 4
 			}
-			
 		};
 
 		this.onMouseEnter = this.onMouseEnter.bind(this);
@@ -70,8 +81,10 @@ class Cell extends React.Component {
 	}
 
 	render() {
+		const { classes } = this.props;
+
 		return (
-			<React.Fragment>
+			<g className={classes.cell}>
 				<polygon
 					points={this.state.location.points}
 					// points={this.props.location.points}
@@ -88,9 +101,28 @@ class Cell extends React.Component {
 				>
 					{this.state.id}
 				</text>
-			</React.Fragment>
+			</g>
 		);
 	}
 }
-		
-		export default Cell;
+
+/* Component prop-types */
+Cell.propTypes = {
+	classes: PropTypes.object.isRequired,
+};
+
+/* Map state to props */
+const store = (state, props) => ({});
+
+/* Component actions */
+const actions = {};
+
+/* Component configurations */
+const options = {
+	styles,
+	store,
+	actions
+};
+
+/* Module exports */
+export default configure(options)(Cell);

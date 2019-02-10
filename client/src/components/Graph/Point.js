@@ -1,43 +1,38 @@
+/* Library imports */
 import React from 'react';
+import PropTypes from 'prop-types';
 
+/* Source imports */
+import configure from '../configure';
+
+
+/* Component styles */
+const styles = (theme) => ({
+	point: {},
+});
+
+/* Component definition */
 class Point extends React.Component {
-	constructor(props) {
-		super(props);
+	state = {};
 
-		// Alias for style
-		this.state = {
-			fill: 'blue',
-			cx: 180,
-			cy: 90,
-			r: 5
-		};
+	onMouseEnter =() => this.setState({
+		fill: 'red',
+		r: 6
+	})
 
-		this.onMouseEnter = this.onMouseEnter.bind(this);
-		this.onMouseLeave = this.onMouseLeave.bind(this);
-		this.onClick = this.onClick.bind(this);
-	}
+	onMouseLeave = () => this.setState({
+		fill: 'blue',
+		r: 4
+	})
 
-	onMouseEnter() {
-		this.setState({
-			fill: 'red',
-			r: 6
-		});
-	}
-
-	onMouseLeave() {
-		this.setState({
-			fill: 'blue',
-			r: 4
-		});
-	}
-
-	onClick() {
-		alert('you\'ve been hacked');
-	}
+	onClick = () => alert('you\'ve been hacked')
 
 	render() {
+		const { classes } = this.props;
+		
 		return (
 			<circle
+				className={classes.point}
 				style={this.state}
 				onMouseEnter={this.onMouseEnter}
 				onMouseLeave={this.onMouseLeave}
@@ -47,4 +42,23 @@ class Point extends React.Component {
 	}
 }
 
-export default Point;
+/* Component prop-types */
+Point.propTypes = {
+	classes: PropTypes.object.isRequired,
+};
+
+/* Map state to props */
+const store = (state, props) => ({});
+
+/* Component actions */
+const actions = {};
+
+/* Component configurations */
+const options = {
+	styles,
+	store,
+	actions
+};
+
+/* Module exports */
+export default configure(options)(Point);

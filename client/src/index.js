@@ -1,8 +1,12 @@
+/* Library imports */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import './styles/index.css';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-serviceWorker.unregister();
+/* Source imports */
+import App from './App';
+
+/* Render application */
+ReactDOM.render(
+	<App />,
+	document.getElementById('root')
+);

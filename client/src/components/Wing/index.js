@@ -1,8 +1,15 @@
+/* Library imports */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Paper } from '@material-ui/core';
+
+/* Source imports */
+import configure from '../configure';
 import Cell from './Cell';
 
-const style = {
+
+/* Component styles */
+const styles = (theme) => ({
 	parent: {
 		height: '60%',
 		width: '30%',
@@ -62,8 +69,9 @@ const style = {
 			stroke: '#99FFCC'
 		}
 	]
-};
+});
 
+/* Component definition */
 class Wing extends React.Component {
 	constructor(props) {
 		super(props);
@@ -74,7 +82,7 @@ class Wing extends React.Component {
 			},
 			selectAll: {
 				selected: true,
-				style: style.selectAll.circle.on
+				styles: styles.selectAll.circle.on
 			}
 		};
 
@@ -110,14 +118,14 @@ class Wing extends React.Component {
 			this.setState({
 				selectAll: {
 					selected: (!this.state.selectAll.selected),
-					style: style.selectAll.circle.on
+					styles: styles.selectAll.circle.on
 			}});
 
 		else
 			this.setState({
 				selectAll: {
 					selected: (!this.state.selectAll.selected),
-					style: style.selectAll.circle.off
+					styles: styles.selectAll.circle.off
 			}});
 	}
 
@@ -190,7 +198,7 @@ class Wing extends React.Component {
 
 
 		const cells = location.map((loc, i) =>
-			<Cell location={loc} shape={style.shapes[i]} key={style.shapes[i].id}/>
+			<Cell location={loc} shape={styles.shapes[i]} key={styles.shapes[i].id}/>
 		);
 
 		return cells;
@@ -198,14 +206,14 @@ class Wing extends React.Component {
 
 	render() {
 		return (
-			<div style={style.parent}>
-				<Paper style={style.Paper}>
-					<svg className='wing' style={style.svg}>
+			<div styles={styles.parent}>
+				<Paper styles={styles.Paper}>
+					<svg className='wing' styles={styles.svg}>
 					<circle
 						cx={this.state.size.width * 0.07}
 						cy={this.state.size.height * 0.2}
 						r={this.state.size.width * this.state.size.height * 0.0002}
-						style={this.state.selectAll.style}
+						styles={this.state.selectAll.styles}
 						strokeWidth='4'
 						onClick={this.selectAll}
 					/>
@@ -219,4 +227,23 @@ class Wing extends React.Component {
 	}
 }
 
-export default Wing;
+/* Component prop-types */
+Wing.propTypes = {
+	classes: PropTypes.object.isRequired,
+};
+
+/* Map state to props */
+const store = (state, props) => ({});
+
+/* Component actions */
+const actions = {};
+
+/* Component configurations */
+const options = {
+	styles,
+	store,
+	actions
+};
+
+/* Module exports */
+export default configure(options)(Wing);
