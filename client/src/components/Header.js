@@ -11,7 +11,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 /* Source imports */
 import configure from './configure';
-import Logo from './Logo';
+import Image from './Image';
+import logo from '../assets';
 
 
 /* Component styles */
@@ -28,47 +29,42 @@ const styles = (theme) => ({
 		marginRight: 'auto',
 		height: '80px',
 		width: '80px',
-		alignItems: 'center',
+		float: 'center',
 	},
 	menuButton: {},
 	title: {},
 });
 
 /* Component definition */
-class Header extends React.Component {
-	state = {};
+const Header = (props) => {
+	const { classes } = props;
 
-	render() {
-		const { classes } = this.props;
-
-		return (
-			<div className={classes.header}>
-				<AppBar className={classes.appbar}>
-					<Toolbar className={classes.toolbar}>
-						<IconButton
-							className={classes.menuButton}
-							color='inherit'
-							aria-label='Open drawer'
-							onClick={this.props.ToggleMenu}
-						>
-							<MenuIcon />
-						</IconButton>
-						<Typography className={classes.title} variant='h6' color='inherit' noWrap>
-							Dashboard
-						</Typography>
-							<Logo className={classes.logo} classes={classes} />
-					</Toolbar>
-				</AppBar>
-			</div>
-		);
-	}
+	return (
+		<div className={classes.header}>
+			<AppBar className={classes.appbar}>
+				<Toolbar className={classes.toolbar}>
+					<IconButton
+						className={classes.menuButton}
+						color='inherit'
+						aria-label='Open drawer'
+						onClick={this.props.ToggleMenu}
+					>
+						<MenuIcon />
+					</IconButton>
+					<Typography className={classes.title} variant='h6' color='inherit' noWrap>
+						Dashboard
+					</Typography>
+						{/* <Logo className={classes.logo} classes={classes} /> */}
+						<Image name={classes.logo} src={logo} alt='mavhawk logo' />
+				</Toolbar>
+			</AppBar>
+		</div>
+	);
 }
 
 /* Component prop-types */
 Header.propTypes = {
 	classes: PropTypes.object.isRequired,
-	store: PropTypes.object.isRequired,
-	actions: PropTypes.object.isRequired
 };
 
 /* Map state to props */

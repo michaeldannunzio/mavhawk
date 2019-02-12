@@ -7,7 +7,7 @@ import reducers from './reducers';
 
 /* Store initial state */
 const initialState = {
-	selectedView: 'Dashboard',
+	selectedView: 'Chart',
 	menuOpen: false
 };
 
