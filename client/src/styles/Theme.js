@@ -1,14 +1,8 @@
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-import {} from '@material-ui/core/colors';
+/* Library imports */
+import { createMuiTheme } from '@material-ui/core';
 
-const Theme = createMuiTheme({
-	palette: {
-		primary: {
-			main: '#161616',
-			dark: '#202020',
-			light: '#4c4c4c',
-		}
-	}
-});
+/* Theme definition */
+const theme = createMuiTheme({});
 
-export default Theme;
+/* Module exports */
+export default theme;
