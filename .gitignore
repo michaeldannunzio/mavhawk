@@ -1,5 +1,4 @@
-/node_modules
-/client/node_modules
-/data/__pycache__
-/dev/bin
-/server/node_modules
+**/node_modules/
+**/.vscode/
+**/.env
+**/.DS_Store
