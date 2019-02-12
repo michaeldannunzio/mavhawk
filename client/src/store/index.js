@@ -5,13 +5,11 @@ import { createStore } from 'redux';
 import reducers from './reducers';
 
 /* Initial store state */
-const initialState = {
-	selectedView: 'Dashboard',
-	menuOpen: false
-};
+const initialState = {};
 
 /* Store definition */
 const store = createStore(reducers, initialState);
+console.log(store.getState());
 
 /* Module exports */
 export default store;

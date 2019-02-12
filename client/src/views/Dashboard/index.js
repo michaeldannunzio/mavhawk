@@ -13,12 +13,12 @@ import {
 	Image
 } from '../../components';
 
-/* Component styles */
+/* Dashboard styles */
 const styles = (theme) => ({
 	dashboard: {},
 });
 
-/* Component definition */
+/* Dashboard definition */
 class Dashboard extends React.Component {
 	state = {};
 
@@ -37,7 +37,7 @@ class Dashboard extends React.Component {
 	}
 }
 
-/* Component prop-types */
+/* Dashboard prop-types */
 Dashboard.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
@@ -45,10 +45,10 @@ Dashboard.propTypes = {
 /* Map state to props */
 const store = (state, props) => ({});
 
-/* Component actions */
+/* Dashboard actions */
 const actions = {};
 
-/* Component configurations */
+/* Dashboard configurations */
 const options = {
 	styles,
 	store,

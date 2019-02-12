@@ -1,40 +1,43 @@
 /* Library imports */
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+	Drawer,
+} from '@material-ui/core';
 
 /* Source imports */
-import { configure } from '../../util';
+import { configure } from '../util';
 
-/* Table styles */
+/* Menu styles */
 const styles = (theme) => ({
-	table: {},
+	menu: {},
 });
 
-/* Table definition */
-class Table extends React.Component {
+/* Menu definition */
+class Menu extends React.Component {
 	state = {};
 
 	render() {
 		const { classes } = this.props;
 
 		return (
-			<div className={classes.table}></div>
+			<div className={classes.menu}></div>
 		);
 	}
 }
 
-/* Table prop-types */
-Table.propTypes = {
+/* Menu prop-types */
+Menu.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
 
 /* Map state to props */
 const store = (state, props) => ({});
 
-/* Table actions */
+/* Menu actions */
 const actions = {};
 
-/* Table configurations */
+/* Menu configurations */
 const options = {
 	styles,
 	store,
@@ -42,4 +45,4 @@ const options = {
 };
 
 /* Module exports */
-export default configure(options)(Table);
+export default configure(options)(Menu);

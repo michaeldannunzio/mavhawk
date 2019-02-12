@@ -5,7 +5,7 @@ import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
 
 /* Source imports */
 import store from './store';
-import theme from './styles';
+import { theme } from './styles';
 import View from './views';
 
 /* App definition */
