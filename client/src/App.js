@@ -1,20 +1,23 @@
+/* Library imports */
 import React from 'react';
-import Navbar from './components/Navbar';
-import Chart from './components/Chart';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import Theme from './styles/Theme';
+import { Provider } from 'react-redux';
+import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <MuiThemeProvider theme={Theme}>
-          <Navbar/>
-          <Chart/>
-        </MuiThemeProvider>
-      </div>
-    );
-  }
-}
+/* Source imports */
+import store from './store';
+import theme from './styles';
+import View from './views';
 
+/* App definition */
+const App = () => (
+	<Provider store={store}>
+		<CssBaseline>
+			<MuiThemeProvider theme={theme}>
+				<View />
+			</MuiThemeProvider>
+		</CssBaseline>
+	</Provider>
+);
+
+/* Module exports */
 export default App;
