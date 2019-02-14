@@ -9,7 +9,6 @@ const initialState = {};
 
 /* Store definition */
 const store = createStore(reducers, initialState);
-console.log(store.getState());
 
 /* Module exports */
 export default store;

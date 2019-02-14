@@ -11,7 +11,6 @@ import { MenuIcon } from '@material-ui/icons/Menu';
 
 /* Source imports */
 import { configure } from '../util';
-import Image from './Image';
 import { logo } from '../assets';
 
 /* Header styles */
@@ -21,7 +20,11 @@ const styles = (theme) => ({
 	toolbar: {},
 	button: {},
 	typography: {},
-	logo: {},
+	logo: {
+		marginLeft: 'auto',
+		marginRight: 'auto',
+		height: '60px',
+	},
 });
 
 /* Header definition */
@@ -32,13 +35,13 @@ const Header = (props) => {
 		<div className={classes.header}>
 			<AppBar className={classes.appbar}>
 				<Toolbar className={classes.toolbar}>
-					<IconButton className={classes.button}>
+					{/* <IconButton className={classes.button}>
 						<MenuIcon />
-					</IconButton>
+					</IconButton> */}
 					<Typography className={classes.typography}>
 						Dashboard
 					</Typography>
-					<Image className={classes.logo} src={logo} alt='mavhawk logo' />
+					<img className={classes.logo} src={logo} alt='mavhawk logo' />
 				</Toolbar>
 			</AppBar>
 		</div>

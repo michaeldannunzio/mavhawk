@@ -7,10 +7,8 @@ import { configure } from '../../util';
 import {
 	Header,
 	Menu,
-	Wing,
 	Chart,
 	Table,
-	Image
 } from '../../components';
 
 /* Dashboard styles */
@@ -31,7 +29,6 @@ class Dashboard extends React.Component {
 				<Menu />
 				<Chart />
 				<Table />
-				<Image />
 			</div>
 		);
 	}
