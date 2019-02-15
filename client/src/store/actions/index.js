@@ -1,2 +1,2 @@
 /* Module exports */
-export { default as selectView } from './selectView';
+export { default as toggleMenu } from './toggleMenu';

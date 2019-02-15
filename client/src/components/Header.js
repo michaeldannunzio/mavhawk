@@ -7,11 +7,12 @@ import {
 	Typography,
 	IconButton,
 } from '@material-ui/core';
-import { MenuIcon } from '@material-ui/icons/Menu';
+import MenuIcon from '@material-ui/icons/Menu';
 
 /* Source imports */
 import { configure } from '../util';
 import { logo } from '../assets';
+import { toggleMenu } from '../store';
 
 /* Header styles */
 const styles = (theme) => ({
@@ -19,10 +20,11 @@ const styles = (theme) => ({
 	appbar: {},
 	toolbar: {},
 	button: {},
-	typography: {},
+	typography: {
+		display: 'flex'
+	},
 	logo: {
-		marginLeft: 'auto',
-		marginRight: 'auto',
+		margin: '0 auto',
 		height: '60px',
 	},
 });
@@ -35,9 +37,9 @@ const Header = (props) => {
 		<div className={classes.header}>
 			<AppBar className={classes.appbar}>
 				<Toolbar className={classes.toolbar}>
-					{/* <IconButton className={classes.button}>
+					<IconButton className={classes.button}>
 						<MenuIcon />
-					</IconButton> */}
+					</IconButton>
 					<Typography className={classes.typography}>
 						Dashboard
 					</Typography>
@@ -57,7 +59,9 @@ Header.propTypes = {
 const store = (state, props) => ({});
 
 /* Header actions */
-const actions = {};
+const actions = {
+	toggleMenu,
+};
 
 /* Header configurations */
 const options = {

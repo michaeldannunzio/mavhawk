@@ -5,10 +5,14 @@ import { createStore } from 'redux';
 import reducers from './reducers';
 
 /* Initial store state */
-const initialState = {};
+const initialState = {
+	menuPosition: false
+};
 
 /* Store definition */
 const store = createStore(reducers, initialState);
+
+console.log(store.getState());
 
 /* Module exports */
 export default store;

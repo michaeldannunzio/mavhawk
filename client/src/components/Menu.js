@@ -18,7 +18,7 @@ class Menu extends React.Component {
 	state = {};
 
 	render() {
-		const { classes } = this.props;
+		const { classes, position } = this.props;
 
 		return (
 			<div className={classes.menu}></div>
@@ -32,7 +32,9 @@ Menu.propTypes = {
 };
 
 /* Map state to props */
-const store = (state, props) => ({});
+const store = (state, props) => ({
+	position: state.menuPosition
+});
 
 /* Menu actions */
 const actions = {};
