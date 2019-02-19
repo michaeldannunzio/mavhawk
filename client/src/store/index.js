@@ -6,7 +6,7 @@ import reducers from './reducers';
 
 /* Initial store state */
 const initialState = {
-	menuPosition: false
+	menuPosition: true
 };
 
 /* Store definition */

@@ -31,13 +31,16 @@ const styles = (theme) => ({
 
 /* Header definition */
 const Header = (props) => {
-	const { classes } = props;
+	const { classes, toggleMenu } = props;
 
 	return (
 		<div className={classes.header}>
 			<AppBar className={classes.appbar}>
 				<Toolbar className={classes.toolbar}>
-					<IconButton className={classes.button}>
+					<IconButton
+						className={classes.button}
+						onClick={toggleMenu}
+					>
 						<MenuIcon />
 					</IconButton>
 					<Typography className={classes.typography}>

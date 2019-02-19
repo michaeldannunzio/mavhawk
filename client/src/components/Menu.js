@@ -2,7 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-	Drawer,
+ Hidden,
+ Drawer,
+ Divider,
+ List,
+ ListItem,
 } from '@material-ui/core';
 
 /* Source imports */
@@ -21,7 +25,26 @@ class Menu extends React.Component {
 		const { classes, position } = this.props;
 
 		return (
-			<div className={classes.menu}></div>
+			<div className={classes.menu}>
+				<Hidden smUp implementation='css'>
+					<Drawer
+						// variant='permanent'
+						// anchor='left'
+						// open={position}
+					>
+						<Divider>
+							<List>
+								<ListItem>
+									hey
+								</ListItem>
+								<ListItem>
+									bye
+								</ListItem>
+							</List>
+						</Divider>
+					</Drawer>
+				</Hidden>
+			</div>
 		);
 	}
 }
