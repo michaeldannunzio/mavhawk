@@ -7,12 +7,12 @@ import {
 	Typography,
 	IconButton,
 } from '@material-ui/core';
-import { MenuIcon } from '@material-ui/icons/Menu';
+import MenuIcon from '@material-ui/icons/Menu';
 
 /* Source imports */
 import { configure } from '../util';
-import Image from './Image';
 import { logo } from '../assets';
+import { toggleMenu } from '../store';
 
 /* Header styles */
 const styles = (theme) => ({
@@ -20,25 +20,33 @@ const styles = (theme) => ({
 	appbar: {},
 	toolbar: {},
 	button: {},
-	typography: {},
-	logo: {},
+	typography: {
+		display: 'flex'
+	},
+	logo: {
+		margin: '0 auto',
+		height: '60px',
+	},
 });
 
 /* Header definition */
 const Header = (props) => {
-	const { classes } = props;
+	const { classes, toggleMenu } = props;
 
 	return (
 		<div className={classes.header}>
 			<AppBar className={classes.appbar}>
 				<Toolbar className={classes.toolbar}>
-					<IconButton className={classes.button}>
+					<IconButton
+						className={classes.button}
+						onClick={toggleMenu}
+					>
 						<MenuIcon />
 					</IconButton>
 					<Typography className={classes.typography}>
 						Dashboard
 					</Typography>
-					<Image className={classes.logo} src={logo} alt='mavhawk logo' />
+					<img className={classes.logo} src={logo} alt='mavhawk logo' />
 				</Toolbar>
 			</AppBar>
 		</div>
@@ -54,7 +62,9 @@ Header.propTypes = {
 const store = (state, props) => ({});
 
 /* Header actions */
-const actions = {};
+const actions = {
+	toggleMenu,
+};
 
 /* Header configurations */
 const options = {

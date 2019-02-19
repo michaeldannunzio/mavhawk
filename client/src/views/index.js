@@ -1,15 +1,15 @@
 /* Library imports */
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+	BrowserRouter,
+	Switch,
+	Route
+} from 'react-router-dom';
 
 /* Source imports */
 import { configure } from '../util';
 import Dashboard from './Dashboard';
-
-/* Application views */
-const views = {
-	Dashboard,
-};
 
 /* View styles */
 const styles = (theme) => ({
@@ -18,12 +18,17 @@ const styles = (theme) => ({
 
 /* View definition */
 const View = (props) => {
-	const { classes, name } = props;
-	const view = views[name];
+	const { classes } = props;
 
 	return (
 		<div className={classes.view}>
-			{/* <view /> */}
+			<BrowserRouter>
+				<React.Fragment>
+					<Switch>
+						<Route exact path='/' component={Dashboard} />
+					</Switch>
+				</React.Fragment>
+			</BrowserRouter>
 		</div>
 	);
 };
@@ -31,13 +36,10 @@ const View = (props) => {
 /* View prop-types */
 View.propTypes = {
 	classes: PropTypes.object.isRequired,
-	name: PropTypes.string.isRequired,
 };
 
 /* Map state to props */
-const store = (state, props) => ({
-	name: props.name === state.selectedView ? props.name : state.selectedView,
-});
+const store = (state, props) => ({});
 
 /* View actions */
 const actions = {};

@@ -2,11 +2,11 @@
 import { combineReducers } from 'redux';
 
 /* Source imports */
-//------------------
+import menuPosition from './menuPosition';
 
 /* Reducers definition */
 const reducers = combineReducers({
-	dummy: () => 'dummy'
+	menuPosition
 });
 
 /* Module exports */
