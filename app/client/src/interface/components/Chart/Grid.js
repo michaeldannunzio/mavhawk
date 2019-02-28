@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /* Source imports */
-import { configure } from '../../util';
+import { configure } from '../../../util';
 
 /* Grid styles */
 const styles = (theme) => ({

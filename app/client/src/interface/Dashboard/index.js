@@ -9,7 +9,7 @@ import {
 	Menu,
 	Chart,
 	Table,
-} from '../../components';
+} from '../components';
 
 /* Dashboard styles */
 const styles = (theme) => ({

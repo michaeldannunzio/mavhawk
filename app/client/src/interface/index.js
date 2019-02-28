@@ -11,13 +11,20 @@ import {
 import { configure } from '../util';
 import Dashboard from './Dashboard';
 
+
 /* View styles */
 const styles = (theme) => ({
 	view: {},
 });
 
+/* Map state to props */
+const store = (state, props) => ({});
+
+/* View actions */
+const actions = {};
+
 /* View definition */
-const View = (props) => {
+const Interface = (props) => {
 	const { classes } = props;
 
 	return (
@@ -34,15 +41,9 @@ const View = (props) => {
 };
 
 /* View prop-types */
-View.propTypes = {
+Interface.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
-
-/* Map state to props */
-const store = (state, props) => ({});
-
-/* View actions */
-const actions = {};
 
 /* View configurations */
 const options = {
@@ -52,4 +53,4 @@ const options = {
 };
 
 /* Module exports */
-export default configure(options)(View);
+export default configure(options)(Interface);

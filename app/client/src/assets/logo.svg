@@ -5,10 +5,10 @@
 			id="ring"
 			cx="50" cy="50" r="40"
 			stroke="gold" stroke-width="8"
-			fill="white"
+			fill="gold"
 		/>
 		<g id="wing">
-			<path
+			<pathd
 				id="wing main"
 				d="
 					M 50 75
