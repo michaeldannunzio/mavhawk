@@ -14,12 +14,22 @@ import { configure } from '../util';
 import { logo } from '../assets';
 import { toggleMenu } from '../store';
 
+const drawerWidth = 240;
+
 /* Header styles */
 const styles = (theme) => ({
 	header: {},
-	appbar: {},
+	appbar: {
+		marginLeft: drawerWidth,
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+    },
+	},
 	toolbar: {},
-	button: {},
+	button: {
+		marginRight: 20,
+
+	},
 	typography: {
 		display: 'flex'
 	},
@@ -31,25 +41,24 @@ const styles = (theme) => ({
 
 /* Header definition */
 const Header = (props) => {
-	const { classes, toggleMenu } = props;
+	const { classes } = props;
 
 	return (
-		<div className={classes.header}>
-			<AppBar className={classes.appbar}>
-				<Toolbar className={classes.toolbar}>
-					<IconButton
-						className={classes.button}
-						onClick={toggleMenu}
-					>
-						<MenuIcon />
-					</IconButton>
-					<Typography className={classes.typography}>
-						Dashboard
-					</Typography>
-					<img className={classes.logo} src={logo} alt='mavhawk logo' />
-				</Toolbar>
-			</AppBar>
-		</div>
+		<AppBar className={classes.appbar}>
+			<Toolbar className={classes.toolbar}>
+				<IconButton
+					className={classes.button}
+					onClick={props.toggleMenu}
+					color='inherit'
+				>
+					<MenuIcon />
+				</IconButton>
+				<Typography className={classes.typography} color='inherit' variant='h6'>
+					Mavhawk
+				</Typography>
+				<img className={classes.logo} src={logo} alt='mavhawk logo' />
+			</Toolbar>
+		</AppBar>
 	);
 }
 

@@ -8,14 +8,14 @@ import {
 /* Source imports */
 import store from './store';
 import { theme } from './styles';
-import Interface from './interface';
+import View from './views';
 
 /* App definition */
 const App = () => (
 	<Provider store={store}>
 		<CssBaseline>
 			<MuiThemeProvider theme={theme}>
-				<Interface />
+				<View />
 			</MuiThemeProvider>
 		</CssBaseline>
 	</Provider>

@@ -1,35 +1,36 @@
 /* Library imports */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Card } from '@material-ui/core';
 
 /* Source imports */
-import { configure } from '../../util';
-import Grid from './Grid';
-import Point from './Point';
+import { configure } from '../util';
 
-/* Chart styles */
+/* Component styles */
 const styles = (theme) => ({
-	chart: {},
+	chart: {
+		width: '100%',
+		margin: theme.spacing.unit * 3,
+		padding: theme.spacing.unit * 3,
+	},
 });
 
-/* Chart definition */
+/* Component definition */
 class Chart extends React.Component {
-	state = {
-		showGrid: true,
-	};
+	state = {};
 
 	render() {
 		const { classes } = this.props;
 
 		return (
-			<div className={classes.chart}>
-				<Grid display={this.state.showGrid} />
-			</div>
+			<Card className={classes.chart}>
+				CHART
+			</Card>
 		);
 	}
 }
 
-/* Chart prop-types */
+/* Component prop-types */
 Chart.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
@@ -40,7 +41,7 @@ const store = (state, props) => ({});
 /* Chart actions */
 const actions = {};
 
-/* Chart configurations */
+/* Component configurations */
 const options = {
 	styles,
 	store,

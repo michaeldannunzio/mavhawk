@@ -9,12 +9,21 @@ import {
  ListItem,
 } from '@material-ui/core';
 
+
 /* Source imports */
 import { configure } from '../util';
 
+const drawerWidth = 240;
+
 /* Menu styles */
 const styles = (theme) => ({
-	menu: {},
+	menu: {
+		[theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+	},
+	toolbar: theme.mixins.toolbar,
 });
 
 /* Menu definition */
@@ -25,26 +34,28 @@ class Menu extends React.Component {
 		const { classes, position } = this.props;
 
 		return (
-			<div className={classes.menu}>
-				<Hidden smUp implementation='css'>
-					<Drawer
-						// variant='permanent'
-						// anchor='left'
-						// open={position}
-					>
-						<Divider>
-							<List>
-								<ListItem>
-									hey
-								</ListItem>
-								<ListItem>
-									bye
-								</ListItem>
-							</List>
-						</Divider>
-					</Drawer>
-				</Hidden>
-			</div>
+			<nav className={classes.menu}>
+				<div className={classes.toolbar}>
+					<Hidden xsDown implementation='css'>
+						<Drawer
+							variant='permanent'
+							anchor='left'
+							open={position}
+						>
+							<Divider />
+								<List>
+									<ListItem>
+										hey
+									</ListItem>
+									<ListItem>
+										bye
+									</ListItem>
+								</List>
+								<Divider />
+						</Drawer>
+					</Hidden>
+				</div>
+			</nav>
 		);
 	}
 }

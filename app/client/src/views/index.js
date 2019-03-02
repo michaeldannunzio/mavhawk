@@ -9,12 +9,15 @@ import {
 
 /* Source imports */
 import { configure } from '../util';
+import { Appbar } from '../components';
 import Dashboard from './Dashboard';
 
 
 /* View styles */
 const styles = (theme) => ({
-	view: {},
+	view: {
+		display: 'flex',
+	},
 });
 
 /* Map state to props */
@@ -24,24 +27,26 @@ const store = (state, props) => ({});
 const actions = {};
 
 /* View definition */
-const Interface = (props) => {
+const View = (props) => {
 	const { classes } = props;
 
 	return (
 		<div className={classes.view}>
 			<BrowserRouter>
-				<React.Fragment>
+				<div className={classes.view}>
+
+					<Appbar />
 					<Switch>
 						<Route exact path='/' component={Dashboard} />
 					</Switch>
-				</React.Fragment>
+				</div>
 			</BrowserRouter>
 		</div>
 	);
 };
 
 /* View prop-types */
-Interface.propTypes = {
+View.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
 
@@ -53,4 +58,4 @@ const options = {
 };
 
 /* Module exports */
-export default configure(options)(Interface);
+export default configure(options)(View);
