@@ -1,6 +1,7 @@
 /* Library imports */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Grid } from '@material-ui/core';
 
 /** Source imports */
 import { configure } from '../util';
@@ -17,18 +18,24 @@ class Dashboard extends React.Component {
 	
 	render() {
 		const { classes } = this.props;
-		
+
 		return (
 			<main className={classes.dashboard}>
-				<div className={classes.section}>
-					<Controls />
-				</div>
-				<div className={classes.section}>
-					<VideoFeed />
-				</div>
-				<div>
-					<Chart />
-				</div>
+				<Grid container spacing={24}>
+					<Grid container item spacing={24}>
+						<Grid item xs={4}>
+							<Controls />
+						</Grid>
+						<Grid item xs={8}>
+							<VideoFeed />
+						</Grid>
+					</Grid>
+					<Grid container item spacing={24}>
+						<Grid item xs={12}>
+							<Chart />
+						</Grid>
+					</Grid>
+				</Grid>
 			</main>
 		);
 	}
@@ -45,9 +52,10 @@ const styles = (theme) => ({
 		// height: '100%',
 		width: '100%',
 		flexGrow: 1,
-		padding: theme.spacing.unit,
+		padding: theme.spacing.unit * 3,
 		border: 'red 2px solid',
-		marginTop: 55,
+		margin: 0,
+		marginTop: 50,
 	},
 	section: {
 		display: 'inline-block',

@@ -5,6 +5,7 @@ import { Card } from '@material-ui/core';
 
 /* Source imports */
 import { configure } from '../util';
+import picture from '../ref/cat.jpg';
 
 
 /* Component definition */
@@ -13,10 +14,12 @@ class VideoFeed extends React.Component {
 	
 	render() {
 		const { classes } = this.props;
+
+		console.log(picture);
 		
 		return (
 			<Card className={classes.videofeed}>
-				VIDEO FEED
+				<img className={classes.media} src={picture} alt='placeholder' />
 			</Card>
 		);
 	}
@@ -30,8 +33,14 @@ VideoFeed.propTypes = {
 /* Component styles */
 const styles = (theme) => ({
 	videofeed: {
-		margin: theme.spacing.unit * 3,
+		// margin: theme.spacing.unit * 3,
 		padding: theme.spacing.unit * 3,
+	},
+	media: {
+		height: 280,
+		width: 'auto',
+		display: 'block',
+		margin: 'auto',
 	},
 });
 

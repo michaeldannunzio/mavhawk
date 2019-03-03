@@ -10,7 +10,7 @@ import Input from './Input';
 /* Component styles */
 const styles = (theme) => ({
 	controls: {
-		margin: theme.spacing.unit * 3,
+		// margin: theme.spacing.unit * 3,
 		padding: theme.spacing.unit,
 		paddingBottom: theme.spacing.unit * 2,
 	},

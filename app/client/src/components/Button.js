@@ -1,7 +1,7 @@
 /* Library imports */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button as MuiButton, IconButton } from '@material-ui/core';
+import { Button as MuiButton } from '@material-ui/core';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 
 /* Source imports */
@@ -29,7 +29,7 @@ const Button = (props) => (
 /* Button prop-types */
 Button.propTypes = {
 	classes: PropTypes.object.isRequired,
-	children: PropTypes.isRequired,
+	// children: PropTypes.isRequired,
 };
 
 /* Component styles */
