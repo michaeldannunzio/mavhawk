@@ -1,5 +1,7 @@
 /* Module exports */
+export { default as Appbar } from './Appbar';
+export { default as Button } from './Button';
 export { default as Chart } from './Chart';
-export { default as Header } from './Header';
-export { default as Menu } from './Menu';
-export { default as Table } from './Table';
+export { default as Controls } from './Controls';
+export { default as Input } from './Input';
+export { default as VideoFeed } from './VideoFeed';

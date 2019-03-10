@@ -39,9 +39,9 @@ const theme = createMuiTheme({
 		},
 		"type": "light",
 		"primary": {
-			"light": "#7986cb",
-			"main": "#3f51b5",
-			"dark": "#303f9f",
+			// "light": "#7986cb",
+			"main": "rgb(40, 40, 80)",
+			// "dark": "#303f9f",
 			"contrastText": "#fff"
 		},
 		"secondary": {
@@ -316,7 +316,7 @@ const theme = createMuiTheme({
 			"letterSpacing": "0.08333em",
 			"textTransform": "uppercase"
 		},
-		"useNextVariants": false
+		"useNextVariants": true
 	},
 	"shape": {
 		"borderRadius": 4

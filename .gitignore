@@ -3,3 +3,6 @@
 **.env
 **.DS_Store
 **package-lock.json
+**.zip
+**.txt
+**ref/

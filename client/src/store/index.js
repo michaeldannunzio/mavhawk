@@ -6,13 +6,11 @@ import reducers from './reducers';
 
 /* Initial store state */
 const initialState = {
-	menuPosition: true
+	menuPosition: false
 };
 
 /* Store definition */
 const store = createStore(reducers, initialState);
-
-console.log(store.getState());
 
 /* Module exports */
 export default store;
