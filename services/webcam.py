@@ -2,7 +2,7 @@
 import cv2
 
 # Source imports
-from mavhawk.services import service
+from services import service
 
 
 # Service definition
