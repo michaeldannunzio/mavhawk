@@ -1,3 +1,4 @@
-class Service(object):
-	def __init__(self):
-		pass
+services = []
+
+def register(s):
+	services.append(s)
