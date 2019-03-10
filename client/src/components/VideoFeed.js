@@ -16,7 +16,7 @@ class VideoFeed extends React.Component {
 
 		return (
 			<Card className={classes.videofeed}>
-				<img className={classes.media} src="/video_feed" alt='video feed' />
+				<img className={classes.media} src='/video_feed' alt='video feed' />
 			</Card>
 		);
 	}
@@ -30,7 +30,6 @@ VideoFeed.propTypes = {
 /* Component styles */
 const styles = (theme) => ({
 	videofeed: {
-		// margin: theme.spacing.unit * 3,
 		padding: theme.spacing.unit * 3,
 	},
 	media: {
@@ -38,6 +37,7 @@ const styles = (theme) => ({
 		width: 'auto',
 		display: 'block',
 		margin: 'auto',
+		borderRadius: 4
 	},
 });
 

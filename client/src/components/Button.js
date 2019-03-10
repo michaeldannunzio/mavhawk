@@ -11,8 +11,6 @@ import { configure } from '../util';
 const Button = (props) => {
 	const { classes } = props;
 
-	console.log(props);
-	
 	const theme = createMuiTheme({
 		palette: {
 			type: 'light',
@@ -28,6 +26,7 @@ const Button = (props) => {
 		<MuiThemeProvider theme={theme}>
 			<MuiButton
 				className={classes.button}
+				component='span'
 				color='primary'
 				variant='contained'
 				onClick={props.onClick}
@@ -41,8 +40,8 @@ const Button = (props) => {
 /* Button prop-types */
 Button.propTypes = {
 	classes: PropTypes.object.isRequired,
-	color: PropTypes.string.isRequired,
-	children: PropTypes.isRequired,
+	// color: PropTypes.string.isRequired,
+	// children: PropTypes.isRequired,
 	// onClick: PropTypes.func.isRequired,
 };
 

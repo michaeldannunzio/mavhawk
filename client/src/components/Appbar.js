@@ -23,7 +23,146 @@ import PowerSettingsNewRounded from '@material-ui/icons/PowerSettingsNewRounded'
 import { configure } from '../util';
 import { logo } from '../assets';
 import Button from './Button';
+import {
+  startSession,
+  endSession,
+  importSession,
+  exportSession,
+  togglePower
+} from '../store';
 
+
+/* Component definition */
+class Appbar extends React.Component {
+  state = {
+    mobileOpen: false,
+  };
+  
+  handleDrawerToggle = () => {
+    this.setState(state => ({ mobileOpen: !state.mobileOpen }));
+  };
+  
+  render() {
+    const { classes } = this.props;
+
+    const drawer = (
+      <div>
+        <div className={classes.toolbar} />
+        <Divider />
+        <div className={classes.divider}>
+          <Button onClick={this.props.startSession} color='rgb(70, 220, 10)'>
+            <PlayArrowRounded className={classes.icon} />
+            Start
+          </Button>
+          <Button onClick={this.props.endSession} color='rgb(240, 60, 50)'>
+            <StopRounded className={classes.icon} />
+            End
+          </Button>
+        </div>
+				<Divider />
+        <div className={classes.divider}>
+          <input
+            className={classes.upload}
+            id="contained-button-file"
+            type="file"
+          />
+          <label htmlFor="contained-button-file">
+            <Button onClick={this.props.importSession} color='rgb(20, 100, 250)'>
+              <CloudUploadIconRounded className={classes.icon} />
+              Import
+            </Button>
+          </label>
+          <a className={classes.download} href={logo} download>
+            <Button onClick={this.props.exportSession} color='rgb(150, 50, 150)'>
+              <CloudDownloadIconRounded className={classes.icon} />
+              Export
+            </Button>
+          </a>
+        </div>
+        <Divider />
+        <div className={classes.divider}>
+          <Button onClick={this.props.togglePower} color='rgb(0, 0, 0)'>
+            <PowerSettingsNewRounded className={classes.icon} />
+            Power
+          </Button>
+        </div>
+        <Divider />
+        <div className={classes.divider}>
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography variant='h6'>
+                <b>
+                  Current
+                </b>
+              </Typography>
+              <Divider />
+              <div className={classes.info}>
+                <Typography variant='subtitle1'>
+                  Size
+                </Typography>
+                <Typography variant='subtitle1'>
+                  Time
+                </Typography>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+    
+    return (
+      <div className={classes.root}>
+        <AppBar position="fixed" className={classes.appBar}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={this.handleDrawerToggle}
+              className={classes.menuButton}
+              >
+              <MenuIcon />
+            </IconButton>
+						<Typography variant="h5" color="inherit" noWrap>
+							Dashboard
+						</Typography>
+						<img className={classes.logo} src={logo} alt='logo' />
+          </Toolbar>
+        </AppBar>
+        <nav className={classes.drawer}>
+          <Hidden smUp implementation="css">
+            <Drawer
+              variant="temporary"
+              anchor='left'
+              open={this.state.mobileOpen}
+              onClose={this.handleDrawerToggle}
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+          <Hidden xsDown implementation="css">
+            <Drawer
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              variant="permanent"
+              open
+              >
+              {drawer}
+            </Drawer>
+          </Hidden>
+        </nav>
+      </div>
+    );
+  }
+}
+
+/* Component prop-types */
+Appbar.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 /* Variable initializations */
 const drawerWidth = 160;
@@ -32,11 +171,11 @@ const drawerWidth = 160;
 const styles = theme => ({
   root: {
     display: 'flex',
-	},
-	logo: {
-		height: 50,
-		margin: '0 auto',
-	},
+  },
+  logo: {
+    height: 50,
+    margin: '0 auto',
+  },
   drawer: {
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
@@ -48,7 +187,7 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
     },
-	},
+  },
   menuButton: {
     marginRight: 20,
     [theme.breakpoints.up('sm')]: {
@@ -79,144 +218,30 @@ const styles = theme => ({
   },
   info: {
     paddingTop: 10
-  }
+  },
+  upload: {
+    display: 'none',
+  },
+  download: {
+    textDecoration: 'none',
+  },
 });
-
-/* Component definition */
-class Appbar extends React.Component {
-  state = {
-    mobileOpen: false,
-  };
-
-  handleDrawerToggle = () => {
-    this.setState(state => ({ mobileOpen: !state.mobileOpen }));
-  };
-
-  render() {
-    const { classes } = this.props;
-
-    const drawer = (
-      <div>
-        <div className={classes.toolbar} />
-        <Divider />
-        <div className={classes.divider}>
-          <Button color='rgb(70, 220, 10)'>
-            <PlayArrowRounded className={classes.icon} />
-            Start
-          </Button>
-          <Button color='rgb(240, 60, 50)'>
-            <StopRounded className={classes.icon} />
-            End
-          </Button>
-        </div>
-				<Divider />
-        <div className={classes.divider}>
-          <Button color='rgb(20, 100, 250)'>
-            <CloudUploadIconRounded className={classes.icon} />
-            Import
-          </Button>
-          <Button color='rgb(150, 50, 150)'>
-            <CloudDownloadIconRounded className={classes.icon} />
-            Export
-          </Button>
-        </div>
-        <Divider />
-        <div className={classes.divider}>
-          <Button color='rgb(0, 0, 0)'>
-            <PowerSettingsNewRounded className={classes.icon} />
-            Power
-          </Button>
-        </div>
-        <Divider />
-        <div className={classes.divider}>
-          <Card className={classes.card}>
-            <CardContent>
-              <Typography variant='h6'>
-                <b>
-                  Current
-                </b>
-              </Typography>
-              <Divider />
-              <div className={classes.info}>
-                <Typography variant='subtitle1'>
-                  Size
-                </Typography>
-                <Typography variant='subtitle1'>
-                  Time
-                </Typography>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    );
-
-    return (
-      <div className={classes.root}>
-        <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.handleDrawerToggle}
-              className={classes.menuButton}
-            >
-              <MenuIcon />
-            </IconButton>
-						<Typography variant="h5" color="inherit" noWrap>
-							Dashboard
-						</Typography>
-						<img className={classes.logo} src={logo} alt='logo' />
-          </Toolbar>
-        </AppBar>
-        <nav className={classes.drawer}>
-          <Hidden smUp implementation="css">
-            <Drawer
-              variant="temporary"
-              anchor='left'
-              open={this.state.mobileOpen}
-              onClose={this.handleDrawerToggle}
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Drawer
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              variant="permanent"
-              open
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-        </nav>
-      </div>
-    );
-  }
-}
-
-/* Component prop-types */
-Appbar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
 
 /* Map state to props */
-const store = (state, props) => ({
-	position: state.menuPosition,
-});
+const store = (state, props) => ({});
 
 /* Component actions */
-const actions = {};
+const actions = {
+  startSession,
+  endSession,
+  importSession,
+  exportSession,
+  togglePower
+};
 
 /* Component configurations */
 const options = {
-	styles,
+  styles,
 	store,
 	actions
 };
