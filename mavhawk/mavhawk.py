@@ -1,40 +1,34 @@
 # Library imports
-import os
-import collections
+import flask
+import multiprocessing
 
 # Source imports
-import app
-import service
-import util
+# from mavhawk.app import App
+# from mavhawk.services import Services
 
 
-# class Mavhawk(object):
-# 	def __init__(self, settings={}, *args, **kwargs):
-# 		self.settings = settings
-# 		self.args = args
-# 		self.kwargs = kwargs
-		
-# 	def configure(self, settings={}, *args, **kwargs):
-# 		self.settings = settings
-# 		self.args = args
-# 		self.kwargs = kwargs
+# Mavhawk definition
+class Mavhawk(object):
+	def __init__(self, settings, *args, **kwargs):
+		# self.settings = kwargs
+		self.settings = settings
+		self.app = flask.Flask(__name__, template_folder=self.settings['app']['path'])
+		self.app.route('/')(self.indexRoute)
 
-# 	def __call__(self, *args, **kwargs):
-# 		pass
+		for service in self.settings['services']:
+			service = service['module'](
+					*service['args'],
+					**service['kwargs']
+			)
+			self.app.route('/' + service.__name__)(service.api)
+			self.services.append(service)
 
-# 	def run(self):
-# 		return self()
+	def __call__(self, *args, **kwargs):
+		self.session = kwargs
+		self.app.run(debug=True)
 
+	def __del__(self, *args, **kwargs):
+		pass
 
-
-def configure(settings={}):
-	settings = util.update(util.default, settings)
-	context = {}
-	
-	for service in settings['services']:
-		service['class']( *service['args'], **service['kwargs'] )
-	
-	return context
-
-def run(context=configure()):
-	pass
+	def indexRoute(self):
+		return flask.render_template('index.html')

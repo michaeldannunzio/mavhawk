@@ -2,11 +2,16 @@
 import os
 import collections
 
-default = {
+
+defaultSettings = {
 	'app': {},
-	'datapath': os.path.abspath(os.path.join(os.getcwd(), 'data')),
+	'data': {
+		'path': os.path.abspath(os.path.join(os.getcwd(), 'data'))
+	},
 	'services': []
 }
+
+
 
 def update(orig_dict, new_dict):
 	for key, val in new_dict.iteritems():

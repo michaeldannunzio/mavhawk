@@ -1,15 +1,16 @@
-# Library imports
-#----------------
+class Services(object):
+	def __init__(self, *args, **kwargs):
+		self.services = []
 
-def initialize(services):
-	for index, service in enumerate(services):
-		service['instance'] = service['class']( *service['args'], **service['kwargs'] )
-		services[index] = service
-		return services
+		for service in args:
+			self.services.append(
+				service['module'](
+					*service['args'],
+					**service['kwargs']
+			))
 
+	def __call__(self, *args, **kwargs):
+		pass
 
-def call(services):
-	for service in services:
-		service['instance'] = service['class']( *service['args'], **service['kwargs'] )
-		services[index] = service
-		return services
+	def __del__(self, *args, **kwargs):
+		pass

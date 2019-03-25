@@ -1,8 +1,21 @@
 # Library imports
 import flask
 
-app = flask.Flask(__name__, static_folder='app/build')
+class App(object):
 
-@app.route('/')
-def index():
-	return flask.send_from_directory('index.html')
+	path = ''
+	services = []
+
+
+	def __init__(self, *args, **kwargs):
+		self.app = flask.Flask(__name__, template_folder=kwargs['path'])
+		self.app.route('/')(self.index)
+
+		for service in kwargs['service']:
+			self.app.route(service['route'], service['method'])
+
+	def index(self):
+		return flask.render_template('index.html')
+
+	def __call__(self):
+		self.app.run(debug=True)

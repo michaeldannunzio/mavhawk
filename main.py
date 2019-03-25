@@ -1,19 +1,34 @@
 # Library imports
-import mavhawk
-from mavhawk import configure, run
+import os
+from mavhawk import Mavhawk
 
 # Source imports
+from data import Database
 from services import Webcam, Potentiometer
 
-settings = {
+app = Mavhawk({
+	'app': {
+		'path': os.path.abspath(os.path.join(os.path.dirname(__file__), 'app', 'build'))
+	},
+	'data': {
+		'module': Database,
+		'args': (),
+		'kwargs': {}
+	},
 	'services': [
-		Potentiometer,
-		Webcam
+		{
+			'module': Webcam,
+			'args': (),
+			'kwargs': {
+				'camera': 0,
+				'fps': 30.0,
+				'fourcc': 'mp4v',
+				'name': 'session',
+				'extension': 'mp4'
+			}
+		}
 	]
-}
+})
 
 if __name__ == '__main__':
-	# app = Mavhawk(settings)
-	# app.run()
-	context = mavhawk.configure(settings)
-	mavhawk.run(context)
+	app(**{})

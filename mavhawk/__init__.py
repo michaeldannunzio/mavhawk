@@ -1,1 +1,1 @@
-import mavhawk
+from mavhawk.mavhawk import Mavhawk
