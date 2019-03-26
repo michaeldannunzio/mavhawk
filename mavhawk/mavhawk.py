@@ -9,6 +9,11 @@ import multiprocessing
 
 # Mavhawk definition
 class Mavhawk(object):
+
+	settings = {}
+	services = []
+	sessions = {}
+
 	def __init__(self, settings, *args, **kwargs):
 		# self.settings = kwargs
 		self.settings = settings
@@ -31,4 +36,5 @@ class Mavhawk(object):
 		pass
 
 	def indexRoute(self):
-		return flask.render_template('index.html')
+		# return flask.render_template('index.html')
+		return flask.send_from_directory(self.settings['app']['path'], 'index.html')

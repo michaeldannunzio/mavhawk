@@ -26,6 +26,11 @@ app = Mavhawk({
 				'name': 'session',
 				'extension': 'mp4'
 			}
+		},
+		{
+			'module': Potentiometer,
+			'args': (),
+			'kwargs': {}
 		}
 	]
 })

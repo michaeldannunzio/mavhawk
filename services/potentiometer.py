@@ -4,6 +4,9 @@
 
 # Service definition
 class Potentiometer(object):
+
+	__name__ = 'potentiometer'
+
 	def __init__(self, *args, **kwargs):
 		self.args = args
 		self.kwargs = kwargs
