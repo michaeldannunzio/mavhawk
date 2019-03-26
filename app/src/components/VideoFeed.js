@@ -5,7 +5,6 @@ import { Card } from '@material-ui/core';
 
 /* Source imports */
 import { configure } from '../util';
-import { v } from '../assets';
 
 
 /* Component definition */
@@ -15,7 +14,6 @@ class VideoFeed extends React.Component {
 	render() {
 		const { classes } = this.props;
 
-		console.log(v);
 		return (
 			<Card className={classes.videofeed}>
 				<img className={classes.media} src='/video_feed' alt='video feed' />

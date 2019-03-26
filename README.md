@@ -8,15 +8,13 @@ The Mavhawk software was built as a control system to carry out our research. It
 
 * [Node.js](https://nodejs.org/en/)
 * [npm](https://www.npmjs.com/get-npm)
-* [Python 3](https://www.python.org/downloads/)
-* [Docker](https://www.docker.com/get-started)
+* [Python 2.7](https://www.python.org/downloads/)
+* [pip]()
 
 ## **Installation**
 
 ```shell
-$ git clone https://github.com/michaeldannunzio/mavhawk.git
-$ cd mavhawk
-$ docker build .
+$ pip install mavhawk
 ```
 
 ## **Usage**
@@ -24,17 +22,31 @@ $ docker build .
 The application is preconfigured for the original research purposes. The architecture of the application however, is structured around microservices. This will allow you to write your own GPIO control logic modules and customize your client-side dashboard and UI.
 
 ```python
+# Mavhawk library
 from mavhawk import Mavhawk
 
-class Webcam(Mavhawk.io):
-	def __init__(self, *args):
-		super(*args)
-		self.args = args
 
-	def record(self):
+# Service defintion
+class Webcam(object):
+	def __init__(self, *args, **kwargs):
+		self.args = args
+		self.kwargs = kwargs
+
+	def __call__(self, *args, **kwargs):
 		pass
 
-Mavhawk.register(Webcam)
+	def __del__(self, *args, **kwargs):
+		pass
+
+
+# Mavhawk application
+app = Mavhawk(**{
+	'services': [{
+			'module': Webcam,
+			'args': (),
+			'kwargs': {}
+	}]
+})
 ```
 
 ## **Contributing**

@@ -35,9 +35,8 @@ class Webcam(object):
 				yield jpeg.tobytes()
 
 	def __del__(self, *args, **kwargs):
-		pass
-		# self.output.release()
-		# self.capture.release()
+		self.output.release()
+		self.capture.release()
 
 	def api(self):
 		return "webcam"
