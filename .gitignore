@@ -7,4 +7,5 @@
 **.txt
 **ref/
 **__pycache__/
+**.pyc
 **build/

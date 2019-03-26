@@ -3,8 +3,6 @@ import flask
 import multiprocessing
 
 # Source imports
-# from mavhawk.app import App
-# from mavhawk.services import Services
 
 
 # Mavhawk definition
@@ -17,7 +15,7 @@ class Mavhawk(object):
 	def __init__(self, settings, *args, **kwargs):
 		# self.settings = kwargs
 		self.settings = settings
-		self.app = flask.Flask(__name__, template_folder=self.settings['app']['path'])
+		self.app = flask.Flask(__name__, static_folder=self.settings['app']['static'], template_folder=self.settings['app']['template'])
 		self.app.route('/')(self.indexRoute)
 
 		for service in self.settings['services']:
@@ -25,7 +23,8 @@ class Mavhawk(object):
 					*service['args'],
 					**service['kwargs']
 			)
-			self.app.route('/' + service.__name__)(service.api)
+			path = '/' + service.__name__
+			self.app.route(path, endpoint=path)(service.api)
 			self.services.append(service)
 
 	def __call__(self, *args, **kwargs):
@@ -36,5 +35,4 @@ class Mavhawk(object):
 		pass
 
 	def indexRoute(self):
-		# return flask.render_template('index.html')
-		return flask.send_from_directory(self.settings['app']['path'], 'index.html')
+		return flask.render_template('index.html')
