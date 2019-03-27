@@ -17,7 +17,7 @@ class Potentiometer(object):
 	def __del__(self, *args, **kwargs):
 		pass
 
-	def api(self):
+	def apiRoute(self):
 		return "potentiometer"
 
 

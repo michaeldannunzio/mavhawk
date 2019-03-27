@@ -28,11 +28,11 @@ app = Mavhawk(**{
 				'extension': 'mp4'
 			}
 		},
-		{
-			'module': Potentiometer,
-			'args': (),
-			'kwargs': {}
-		}
+		# {
+		# 	'module': Potentiometer,
+		# 	'args': (),
+		# 	'kwargs': {}
+		# }
 	]
 })
 

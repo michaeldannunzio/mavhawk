@@ -14,7 +14,8 @@ class Services(object):
 			))
 
 	def __call__(self, *args, **kwargs):
-		pass
+		for s in self._s:
+			s()
 
 	def __del__(self, *args, **kwargs):
 		for s in self._s:

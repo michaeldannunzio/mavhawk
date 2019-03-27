@@ -32,11 +32,12 @@ class Webcam(object):
 			if success == True:
 				self.output.write(frame)
 				ret, jpeg = cv2.imencode('jpeg', frame)
+				cv2.imshow('frame', frame)
 				yield jpeg.tobytes()
 
 	def __del__(self, *args, **kwargs):
 		self.output.release()
 		self.capture.release()
 
-	def api(self):
-		return "webcam"
+	def apiRoute(self):
+		return self()
