@@ -7,11 +7,9 @@ class Services(object):
 		self.kwargs = kwargs
 
 		for service in self.args:
-			self._s.append(
-				service['module'](
-					*service['args'],
-					**service['kwargs']
-			))
+			s = service['module'](*service['args'], **service['kwargs'])
+			kwargs['server'].addRoute('/' + s.__class__.__name__, s.apiRoute)
+			self._s.append(s)
 
 	def __call__(self, *args, **kwargs):
 		for s in self._s:
@@ -21,6 +19,6 @@ class Services(object):
 		for s in self._s:
 			del s
 
-	def __iter__(self):
-		for s in self._s:
-			yield s
+	# def __iter__(self):
+	# 	for s in self._s:
+	# 		yield s

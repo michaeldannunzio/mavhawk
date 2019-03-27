@@ -7,9 +7,12 @@ from data import Database
 from services import Webcam, Potentiometer
 
 app = Mavhawk(**{
-	'app': {
+	'server': {
 		'template': os.path.abspath(os.path.join(os.path.dirname(__file__), 'app', 'build')),
-		'static': os.path.abspath(os.path.join(os.path.dirname(__file__), 'app', 'build', 'static'))
+		'static': os.path.abspath(os.path.join(os.path.dirname(__file__), 'app', 'build', 'static')),
+		'run': {
+			'debug': False
+		},
 	},
 	'data': {
 		'module': Database,
