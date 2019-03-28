@@ -14,19 +14,19 @@ class Server(object):
 		self.app.route('/')(self.indexRoute)
 		self.app.route('/exit')(self.exitRoute)
 
-	def __call__(self, q, *args, **kwargs):
-		self.q = q
+	def __call__(self, *args, **kwargs):
+		self.process = kwargs['process'](target=self.app.run)
 		self.app.run(**kwargs)
 
 	def __del__(self, *args, **kwargs):
-		del self.app
+		print('shutting down server...')
 
-	def indexRoute(self):
+	def indexRoute(self, *args, **kwargs):
 		return flask.render_template('index.html')
 	
-	def exitRoute(self):
-		self.q.put(True)
-		return 'laterrrrr'
+	def exitRoute(self, *args, **kwargs):
+		self.kwargs['queue'].put(True)
+		return 'Mavhawk shutting down.'
 	
 	def addRoute(self, path, func):
 		self.app.route(path, endpoint=path)(func)

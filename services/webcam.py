@@ -27,13 +27,14 @@ class Webcam(object):
 		# )
 
 	def __call__(self, *args, **kwargs):
-		while(self.capture.isOpened()):
-			success, frame = self.capture.read()
-			if success == True:
-				self.output.write(frame)
-				ret, jpeg = cv2.imencode('jpeg', frame)
-				cv2.imshow('frame', frame)
-				yield jpeg.tobytes()
+		print('webcam')
+		# while(self.capture.isOpened()):
+		# 	success, frame = self.capture.read()
+		# 	if success == True:
+		# 		self.output.write(frame)
+		# 		ret, jpeg = cv2.imencode('jpeg', frame)
+		# 		cv2.imshow('frame', frame)
+		# 		yield jpeg.tobytes()
 
 	def __del__(self, *args, **kwargs):
 		self.output.release()

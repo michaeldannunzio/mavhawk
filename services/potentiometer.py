@@ -12,13 +12,13 @@ class Potentiometer(object):
 		self.kwargs = kwargs
 
 	def __call__(self, *args, **kwargs):
-		pass
+		print('potentiometer')
 	
 	def __del__(self, *args, **kwargs):
 		pass
 
 	def apiRoute(self):
-		return "potentiometer"
+		return 'potentiometer'
 
 
 # # define SPI pins

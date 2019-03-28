@@ -10,42 +10,36 @@ from services import Services
 class Mavhawk(object):
 	def __init__(self, *args, **kwargs):
 		self.settings = kwargs
-		self.server = Server(**self.settings['server'])
+		self.server = Server(queue=multiprocessing.Queue(), **self.settings['server'])
 		self.services = Services(*self.settings['services'], server=self.server)
 
 	def __call__(self, *args, **kwargs):
 		self.session = kwargs
+
+		# self.services(process=multiprocessing.Process)
+		self.server(process=multiprocessing.Process)
+
+
 		
-		# self.proc = {
-		# 	'server': multiprocessing.Process(target=self.server),
-		# 	'services': 
-		# }
+		# self.proc = {}
 
-		self.proc = {}
 
-		q = multiprocessing.Queue()
-		self.proc['server'] = multiprocessing.Process(
-			target=self.server,
-			args=(q,),
-			kwargs=self.settings['server']['run']
-		)
+		# self.proc['server'] = multiprocessing.Process(
+		# 	target=self.server,
+		# 	kwargs=self.settings['server']['run']
+		# )
 		
-		self.proc['server'].start()
+		# self.proc['server'].start()
 
-		print('waiting...')
-
-		if q.get():
-			print('good bye')
+		time.sleep(1)
+		print('\nmavhawk running...')
+		if self.server.kwargs['queue'].get():
+			print('preparing shutdown')
 			self.proc['server'].terminate()
 			self.proc['server'].join()
 
-		# del self.services
-		del self.server
-		del self.services
-		
 
-		# self.services()
-
-	# def __del__(self, *args, **kwargs):
-		# del self.services
-		# del self.server
+	def __del__(self, *args, **kwargs):
+		self.server.__del__()
+		self.services.__del__()
+		print('mavhawk shutting down...')

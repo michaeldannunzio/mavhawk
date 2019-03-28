@@ -22,31 +22,39 @@ $ pip install mavhawk
 The application is preconfigured for the original research purposes. The architecture of the application however, is structured around microservices. This will allow you to write your own GPIO control logic modules and customize your client-side dashboard and UI.
 
 ```python
-# Mavhawk library
 from mavhawk import Mavhawk
+import cv2
 
 
-# Service defintion
 class Webcam(object):
 	def __init__(self, *args, **kwargs):
 		self.args = args
 		self.kwargs = kwargs
+		self.capture = cv2.VideoCapture(0)
 
 	def __call__(self, *args, **kwargs):
-		pass
+		while self.capture.isOpened():
+			ret, frame = self.capture.read()
 
-	def __del__(self, *args, **kwargs):
-		pass
+			if ret == True:
+				cv2.imwshow('frame', frame)
+				cv2.imwrite('frame.png', frame)
+
+	def __del__(self):
+		self.capture.release()
 
 
-# Mavhawk application
-app = Mavhawk(**{
+app = Mavhawk({
 	'services': [{
 			'module': Webcam,
 			'args': (),
 			'kwargs': {}
 	}]
 })
+
+if __name__ == '__main__':
+	app()
+
 ```
 
 ## **Contributing**
