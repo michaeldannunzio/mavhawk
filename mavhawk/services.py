@@ -21,9 +21,7 @@ class Services(object):
 			# s()
 
 	def __del__(self, *args, **kwargs):
-		print('shutting down services...')
-		for s in self._s:
-			del s
+		pass
 
 	def __len__(self):
 		return len(self._s)

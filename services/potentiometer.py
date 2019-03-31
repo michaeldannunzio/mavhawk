@@ -1,5 +1,5 @@
 # Library imports
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 
 
 # Service definition
@@ -11,53 +11,41 @@ class Potentiometer(object):
 		self.args = args
 		self.kwargs = kwargs
 
+		GPIO.setmode(GPIO.BCM)
+		
+		GPIO.setup(self.kwargs['SPI_CS_PIN'], GPIO.OUT)
+		GPIO.setup(self.kwargs['SPI_CLK_PIN'], GPIO.OUT)
+		GPIO.setup(self.kwargs['SPI_SDISDO_PIN'], GPIO.OUT)
+
+		GPIO.output(self.kwargs['SPI_CLK_PIN'], False)
+		GPIO.output(self.kwargs['SPI_SDISDO_PIN'], False)
+		GPIO.output(self.kwargs['SPI_CS_PIN'], False)
+		
+		GPIO.output(self.kwargs['SPI_CS_PIN'], True)
+		GPIO.output(self.kwargs['SPI_CLK_PIN'], False)
+		GPIO.output(self.kwargs['SPI_CS_PIN'], False)
+
 	def __call__(self, *args, **kwargs):
-		print('potentiometer')
+		value = kwargs['value']
+
+		if value < 0:
+			value = 0
+		elif value > 127:
+			value = 127
+
+		binaryValue = "0000" "00" "{0:010b}".format(value)
+		# binaryValue = binaryValue.format(kwargs['value'])
+		GPIO.output(self.kwargs['SPI_CS_PIN'], False)
+
+		for x in binaryValue:
+			GPIO.output(self.kwargs['SPI_SDISDO_PIN'], int(x))
+			GPIO.output(self.kwargs['SPI_CLK_PIN'], True)
+			GPIO.output(self.kwargs['SPI_CLK_PIN'], False)
+
+		GPIO.output(self.kwargs['SPI_CS_PIN'], True)
 	
 	def __del__(self, *args, **kwargs):
-		pass
+		GPIO.cleanup()
 
 	def apiRoute(self):
 		return 'potentiometer'
-
-
-# # define SPI pins
-# SPI_CS_PIN = 17
-# SPI_CLK_PIN = 23
-# SPI_SDISDO_PIN = 22 # mosi
-
-# # define GPIO settings
-# GPIO.setmode(GPIO.BCM)
-# GPIO.setup(SPI_CS_PIN, GPIO.OUT)
-# GPIO.setup(SPI_CLK_PIN, GPIO.OUT)
-# GPIO.setup(SPI_SDISDO_PIN, GPIO.OUT)
-
-# # module that defines the wiper movement
-# def set_value(value):
-#     print "here"
-#     GPIO.output(SPI_CS_PIN, True)
-
-#     GPIO.output(SPI_CLK_PIN, False)
-#     GPIO.output(SPI_CS_PIN, False)
-
-#     b = '{0:016b}'.format(value)
-#     for x in range(0, 16):
-#         print 'x:' + str(x) + ' -> ' + str(b[x])
-#         GPIO.output(SPI_SDISDO_PIN, int(b[x]))
-
-#         GPIO.output(SPI_CLK_PIN, True)
-#         GPIO.output(SPI_CLK_PIN, False)
-
-#     GPIO.output(SPI_CS_PIN, True)
-
-# # main program
-# # sample program that constantly moves the wiper up and down.
-# while True:
-#     for level in range(0, 128): 
-#         print 'level:' + str(level)
-#         set_value(level)
-#         time.sleep(0.1)
-
-#     for level in range(127, -1, -1):
-#         print 'level:' + str(level)
-#         time.sleep(0.1)
