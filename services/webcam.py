@@ -1,12 +1,12 @@
 # Library imports
 import cv2
-
+from pprint import pprint
 
 # Service definition
 class Webcam(object):
 
 	__name__ = 'webcam'
-	_id = 1
+	_count = 0
 	_record = False
 
 	settings = {
@@ -18,6 +18,9 @@ class Webcam(object):
 	def __init__(self, *args, **kwargs):
 		self.args = args
 		self.kwargs = kwargs
+
+		Webcam._count += 1
+		self.id = Webcam._count
 
 		self.capture = cv2.VideoCapture(self.settings['camera'])
 		self.capture.set(cv2.CAP_PROP_FPS, self.settings['fps'])
@@ -35,8 +38,14 @@ class Webcam(object):
 		)
 
 	def __call__(self, *args, **kwargs):
+
+		# pprint(dir(self.kwargs['flask'].request))
+		# print(self.kwargs['flask'].request.data)
+
 		if self.kwargs['flask'].request.method == 'POST':
 			self._record = not self._record
+			return str(self._record)
+
 		else:
 			return self.sendFrame()
 
@@ -47,7 +56,11 @@ class Webcam(object):
 	def getImage(self):
 		success, frame = self.capture.read()
 		if self._record == True:
+			pass
+			# print("RECORDING")
+		else:
 			self.output.write(frame)
+			# print('waiting...')
 		ret, jpeg = cv2.imencode('.jpeg', frame)
 		return jpeg.tobytes()
 

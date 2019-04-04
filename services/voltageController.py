@@ -2,6 +2,9 @@ from potentiometer import Potentiometer
 
 class VoltageController(object):
 
+	__name__ = 'voltage_controller'
+	_count = 0
+
 	settings = {
 		'vcc': 5,
 		'stepUpValue': 1571
@@ -11,6 +14,9 @@ class VoltageController(object):
 		self.args = args
 		self.kwargs = kwargs
 
+		VoltageController._count += 1
+		self.id = VoltageController._count
+
 		self.potentiometer = Potentiometer(**self.kwargs)
 
 	def __call__(self, *args, **kwargs):
@@ -18,7 +24,12 @@ class VoltageController(object):
 			outputVoltage = self.kwargs['flask'].request.data
 			stepUpVoltage = self.calculateStepUpVoltage(outputVoltage)
 			value = self.calculateWiperValue(outputVoltage)
-			self.potentiometer(value)
+			self.potentiometer(value=value)
+			self.value = value
+		
+			return self.kwargs['flask'].jsonify({'value': self.value})
+		
+		return self.kwargs['flask'].jsonify({'value': value })
 
 	def __del__(self, *args, **kwargs):
 		pass

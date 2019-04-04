@@ -21,12 +21,13 @@ class Mavhawk(object):
 
 		for ServiceClass in self.settings['services']:
 			serviceInstance = ServiceClass(flask=flask)
-			path = os.path.join('/', serviceInstance.__name__, str(serviceInstance._id))
+			path = os.path.join('/', serviceInstance.__name__, str(serviceInstance.id))
+			print(path)
 			self.app.route(path, endpoint=path, methods=['GET', 'POST'])(serviceInstance.__call__)
 
 	def __call__(self, *args, **kwargs):
 		# self.process.start()
-		self.app.run(host='0.0.0.0', debug=False)
+		self.app.run(debug=False)
 
 	def __del__(self, *args, **kwargs):
 		pass

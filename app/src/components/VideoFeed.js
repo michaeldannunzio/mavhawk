@@ -5,19 +5,31 @@ import { Card } from '@material-ui/core';
 
 /* Source imports */
 import { configure } from '../util';
+import { logo } from '../assets';
+import { recording } from '../store';
 
 
 /* Component definition */
 class VideoFeed extends React.Component {
 	state = {};
+
+	getImageSource = () => {
+		if (this.props.recording) {
+			return '/webcam/1';
+		} 
+		else {
+			return logo;
+		}
+	}
 	
 	render() {
 		const { classes } = this.props;
+		// const imageSource = this.getImageSource();
+		const imageSource = '/webcam/1';
 
 		return (
 			<Card className={classes.videofeed}>
-				<img className={classes.media} src='/webcam/1' alt='video feed' />
-				{/* <iframe title='feed' className={classes.media} src={v}></iframe> */}
+				<img className={classes.media} src={imageSource} alt='video feed' />
 			</Card>
 		);
 	}
@@ -34,7 +46,7 @@ const styles = (theme) => ({
 		padding: theme.spacing.unit * 3,
 	},
 	media: {
-		height: 480,
+		maxHeight: 330,
 		width: 'auto',
 		display: 'block',
 		margin: 'auto',

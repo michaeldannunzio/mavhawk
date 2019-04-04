@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
 	TextField,
-	InputAdornment,
 } from '@material-ui/core';
 
 /* Source imports */

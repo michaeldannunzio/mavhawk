@@ -19,6 +19,7 @@ import PlayArrowRounded from '@material-ui/icons/PlayArrowRounded';
 import StopRounded from '@material-ui/icons/StopRounded';
 import PowerSettingsNewRounded from '@material-ui/icons/PowerSettingsNewRounded';
 import VideocamRounded from '@material-ui/icons/VideocamRounded';
+import axios from 'axios';
 
 /* Source imports */
 import { configure } from '../util';
@@ -29,7 +30,8 @@ import {
   endSession,
   importSession,
   exportSession,
-  togglePower
+  togglePower,
+  toggleVideo
 } from '../store';
 
 
@@ -37,10 +39,35 @@ import {
 class Appbar extends React.Component {
   state = {
     mobileOpen: false,
+    recording: false,
+    power: false
   };
   
   handleDrawerToggle = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
+  };
+
+  togglePower = () => {
+    this.setState({
+      power: !this.state.power
+    });
+
+    axios.post('/power_control/1', {
+      power: this.state.power
+    });
+  };
+
+  toggleVideo = () => {
+    this.setState({
+      recording: !this.state.recording
+    });
+
+    axios.post('/webcam/1', {
+      recording: this.state.recording
+    });
+    // axios.post('/webcam/1', {
+    //   recording: this.state.recording
+    // });
   };
   
   render() {
@@ -90,12 +117,14 @@ class Appbar extends React.Component {
         </div>
         <Divider />
         <div className={classes.divider}>
-          <Button onClick={this.props.togglePower} color='rgb(250, 250, 250)' textColor='rgb(20, 20, 20)'>
-            <PowerSettingsNewRounded className={classes.icon} style={{fill: !this.props.recording ? 'rgb(255, 0, 0)' : 'rgb(0, 255, 0)' }} />
+          {/* <Button onClick={this.props.togglePower} color='rgb(250, 250, 250)' textColor='rgb(20, 20, 20)'> */}
+          <Button onClick={this.togglePower} color='rgb(255, 255, 255)' textColor='rgb(20, 20, 20)'>
+            <PowerSettingsNewRounded className={classes.icon} style={{fill: !this.state.power ? 'rgb(255, 0, 0)' : 'rgb(0, 255, 0)' }} />
             Power
           </Button>
-          <Button onClick={this.props.toggleVideo} color='rgb(250, 250, 250)' textColor='rgb(20, 20, 20)'>
-            <VideocamRounded className={classes.icon}  style={{fill: !this.props.recording ? 'rgb(255, 0, 0)' : 'rgb(0, 255, 0)' }} />
+          {/* <Button onClick={this.props.toggleVideo} color='rgb(250, 250, 250)' textColor='rgb(20, 20, 20)'> */}
+          <Button onClick={this.toggleVideo} color='rgb(255, 255, 255)' textColor='rgb(20, 20, 20)'>
+            <VideocamRounded className={classes.icon}  style={{fill: !this.state.recording ? 'rgb(255, 0, 0)' : 'rgb(0, 255, 0)' }} />
             Record
           </Button>
         </div>

@@ -19,6 +19,7 @@ import { configure } from '../util';
 /* Component styles */
 const styles = (theme) => ({
 	chartBase: {
+		// height: '40%',
 		padding: theme.spacing.unit * 3,
 	},
 	container: {},
@@ -49,14 +50,14 @@ class Chart extends React.Component {
 
 	return (
 		<Card className={classes.chartBase}>
-				<ResponsiveContainer height={400} width='100%'>
+				<ResponsiveContainer height={300} width='100%'>
 					<LineChart
 						width={600}
 						height={300}
 						data={this.props.data}
-						margin={{top: 5, right: 20, left: 0, bottom: 5}}
+						margin={{top: 2, right: 20, left: 0, bottom: 2}}
 					>
-						<Legend />
+						<Legend iconSize='10' />
 						<CartesianGrid strokeDasharray="3 3" />
 						<XAxis dataKey="Time" />
 						<YAxis />

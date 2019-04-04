@@ -19,10 +19,10 @@ const Dashboard = (props) => {
 	return (
 		<div className={classes.dashboard}>
 			<Grid container spacing={24}>
-				<Grid item xs={12} sm={5}>
+				<Grid item xs={10} sm={4}>
 					<Controls cells={3} />
 				</Grid>
-				<Grid item xs={12} sm={7}>
+				<Grid item xs={14} sm={8}>
 					<VideoFeed />
 				</Grid>
 				<Grid item xs={12}>

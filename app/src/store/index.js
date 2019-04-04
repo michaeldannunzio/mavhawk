@@ -1,9 +1,9 @@
 /* Library imports */
 import {
 	createStore,
-	applyMiddleware
+	// applyMiddleware
 } from 'redux';
-import thunk from 'redux-thunk';
+// import thunk from 'redux-thunk';
 
 /* Source imports */
 import reducers from './reducers';
@@ -13,7 +13,7 @@ import reducers from './reducers';
 const initialState = {};
 
 /* Redux Middleware */
-const middleware = applyMiddleware(thunk);
+// const middleware = applyMiddleware(thunk);
 
 /* Store definition */
 const store = createStore(reducers, initialState);

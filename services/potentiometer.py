@@ -4,13 +4,17 @@ import RPi.GPIO as GPIO
 # Service definition
 class Potentiometer(object):
 
-	_name_ = 'potentiometer'
+	__name__ = 'potentiometer'
+	_count = 0
+	settings = {}
 
 	def __init__(self, *args, **kwargs):
 		self.args = args
 		self.kwargs = kwargs
 		self.setting = self.kwargs['settings']
 
+		Potentiometer._count += 1
+		self.id = Potentiometer._count
 
 		GPIO.setmode(GPIO.BCM)
 		
