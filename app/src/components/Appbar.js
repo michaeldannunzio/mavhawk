@@ -91,11 +91,11 @@ class Appbar extends React.Component {
         <Divider />
         <div className={classes.divider}>
           <Button onClick={this.props.togglePower} color='rgb(250, 250, 250)' textColor='rgb(20, 20, 20)'>
-            <PowerSettingsNewRounded className={classes.icon} style={{fill: this.props.recording ? 'rgb(255, 0, 0)' : 'rgb(0, 255, 0)' }} />
+            <PowerSettingsNewRounded className={classes.icon} style={{fill: !this.props.recording ? 'rgb(255, 0, 0)' : 'rgb(0, 255, 0)' }} />
             Power
           </Button>
           <Button onClick={this.props.toggleVideo} color='rgb(250, 250, 250)' textColor='rgb(20, 20, 20)'>
-            <VideocamRounded className={classes.icon}  style={{fill: this.props.recording ? 'rgb(255, 0, 0)' : 'rgb(0, 255, 0)' }} />
+            <VideocamRounded className={classes.icon}  style={{fill: !this.props.recording ? 'rgb(255, 0, 0)' : 'rgb(0, 255, 0)' }} />
             Record
           </Button>
         </div>

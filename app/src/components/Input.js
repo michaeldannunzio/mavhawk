@@ -2,11 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-	IconButton,
-	TextField
+	TextField,
+	InputAdornment,
 } from '@material-ui/core';
-import ArrowLeftRounded from '@material-ui/icons/ArrowLeftRounded';
-import ArrowRightRounded from '@material-ui/icons/ArrowRightRounded';
 
 /* Source imports */
 import { configure } from '../util';
@@ -28,16 +26,18 @@ class Input extends React.Component {
 					className={classes.inputField}
 					margin='normal'
           variant="outlined"
-        /> */}
+				/> */}
 				<TextField
           id={this.props.id}
           label={label}
           value={this.props.value}
-          // onChange={this.handleChange('value')}
+          onChange={this.props.changeVoltage}
           type="number"
           className={classes.inputField}
           InputLabelProps={{
-            shrink: true,
+						shrink: true,
+						// endAdornment={<InputAdornment position="end">Kg</InputAdornment>}
+            // inputProps={{
           }}
           margin="normal"
           variant="outlined"
