@@ -2,7 +2,10 @@ from potentiometer import Potentiometer
 
 class VoltageController(object):
 
-	settings = {}
+	settings = {
+		'vcc': 5,
+		'stepUpValue': 1571
+	}
 
 	def __init__(self, *args, **kwargs):
 		self.args = args
@@ -10,37 +13,21 @@ class VoltageController(object):
 
 		self.potentiometer = Potentiometer(**self.kwargs)
 
-
-
-
-
-
-
-
-
-
 	def __call__(self, *args, **kwargs):
 		if self.kwargs['flask'].request.method == 'POST':
-			voltage = self.kwargs['flask'].request.data
-			value = calculateWiperValue(voltage)
+			outputVoltage = self.kwargs['flask'].request.data
+			stepUpVoltage = self.calculateStepUpVoltage(outputVoltage)
+			value = self.calculateWiperValue(outputVoltage)
 			self.potentiometer(value)
-
-
-
-
-
-
-
-
-
-
 
 	def __del__(self, *args, **kwargs):
 		pass
 
-	def calculateWiperValue(voltage=0):
-		# if no voltage is pass, defaults to 0
-		raise NotImplementedError
+	def calculateStepUpVoltage(self, voltage):
+		return voltage * self.settings['stepUpValue']
+
+	def calculateWiperValue(self, voltage):
+		value = 128 * (1 - (voltage / self.settings['vcc']))
 
 
 if __name__ == '__main__':
