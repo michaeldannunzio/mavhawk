@@ -3,7 +3,7 @@ import json
 
 class Database(object):
 	def __init__(self, *args, **kwargs):
-		pass
+		self.workingDir = os.path.abspath(os.getcwd())
 
 	def __call__(self, *args, **kwargs):
 		pass

@@ -10,20 +10,22 @@ class Potentiometer(object):
 	def __init__(self, *args, **kwargs):
 		self.args = args
 		self.kwargs = kwargs
+		self.setting = self.kwargs['settings']
+
 
 		GPIO.setmode(GPIO.BCM)
 		
-		GPIO.setup(self.kwargs['SPI_CS_PIN'], GPIO.OUT)
-		GPIO.setup(self.kwargs['SPI_CLK_PIN'], GPIO.OUT)
-		GPIO.setup(self.kwargs['SPI_SDISDO_PIN'], GPIO.OUT)
+		GPIO.setup(self.settings['SPI_CS_PIN'], GPIO.OUT)
+		GPIO.setup(self.settings['SPI_CLK_PIN'], GPIO.OUT)
+		GPIO.setup(self.settings['SPI_SDISDO_PIN'], GPIO.OUT)
 
-		GPIO.output(self.kwargs['SPI_CLK_PIN'], False)
-		GPIO.output(self.kwargs['SPI_SDISDO_PIN'], False)
-		GPIO.output(self.kwargs['SPI_CS_PIN'], False)
+		GPIO.output(self.settings['SPI_CLK_PIN'], False)
+		GPIO.output(self.settings['SPI_SDISDO_PIN'], False)
+		GPIO.output(self.settings['SPI_CS_PIN'], False)
 		
-		GPIO.output(self.kwargs['SPI_CS_PIN'], True)
-		GPIO.output(self.kwargs['SPI_CLK_PIN'], False)
-		GPIO.output(self.kwargs['SPI_CS_PIN'], False)
+		GPIO.output(self.settings['SPI_CS_PIN'], True)
+		GPIO.output(self.settings['SPI_CLK_PIN'], False)
+		GPIO.output(self.settings['SPI_CS_PIN'], False)
 
 	def __call__(self, *args, **kwargs):
 		value = kwargs['value']
@@ -35,17 +37,36 @@ class Potentiometer(object):
 
 		binaryValue = "0000" "00" "{0:010b}".format(value)
 		# binaryValue = binaryValue.format(kwargs['value'])
-		GPIO.output(self.kwargs['SPI_CS_PIN'], False)
+		GPIO.output(self.settings['SPI_CS_PIN'], False)
 
 		for x in binaryValue:
-			GPIO.output(self.kwargs['SPI_SDISDO_PIN'], int(x))
-			GPIO.output(self.kwargs['SPI_CLK_PIN'], True)
-			GPIO.output(self.kwargs['SPI_CLK_PIN'], False)
+			GPIO.output(self.settings['SPI_SDISDO_PIN'], int(x))
+			GPIO.output(self.settings['SPI_CLK_PIN'], True)
+			GPIO.output(self.settings['SPI_CLK_PIN'], False)
 
-		GPIO.output(self.kwargs['SPI_CS_PIN'], True)
+		GPIO.output(self.settings['SPI_CS_PIN'], True)
 	
 	def __del__(self, *args, **kwargs):
 		GPIO.cleanup()
 
 	def apiRoute(self):
 		return 'potentiometer'
+
+
+if __name__ == '__main__':
+	config = {
+		'pot1': {
+			...
+		},
+		'pot2': {
+			...
+		},
+		'pot2': {
+			...
+		},
+	}
+
+	pot1 = Potentiometer(settings=config['pot1'])
+	pot2 = Potentiometer(settings=config['pot2'])
+	pot3 = Potentiometer(settings=config['pot3'])
+	

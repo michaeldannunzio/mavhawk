@@ -1,9 +1,10 @@
 # Library imports
+import os
 import flask
 
 
 # Server definition
-class Server(object):
+class Server(object):	
 
 	settings = {
 		'debug': False,
@@ -24,10 +25,12 @@ class Server(object):
 		self.app.route('/exit')(self.exitRoute)
 
 	def __call__(self, *args, **kwargs):
-		self.process = kwargs['process'](target=self.app.run, kwargs=self.settings)
+		# self.process = kwargs['process'](target=self.app.run, kwargs=self.settings)
+		self.process.start()
 
-	def __del__(self, *args, **kwargs):
-		pass
+	def shutdown(self):
+		self.process.terminate()
+		self.process.join()
 
 	def indexRoute(self, *args, **kwargs):
 		return flask.render_template('index.html')
@@ -38,3 +41,19 @@ class Server(object):
 	
 	def addRoute(self, path, func):
 		self.app.route(path, endpoint=path)(func)
+		return flask.Response
+
+
+
+
+
+
+app = flask.Flask(__name__)
+
+@app.route('/')
+def indexRoute():
+	return flask.render_template('index.html')
+
+@app.route('/webcam')
+def webcam():
+	return img
