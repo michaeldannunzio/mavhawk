@@ -3,26 +3,15 @@ import os
 from mavhawk import Mavhawk
 
 # Source imports
-from services import Webcam, Potentiometer
+from services import Webcam
 
 app = Mavhawk({
-	'server': os.path.abspath(os.path.join(os.path.dirname(__file__), 'app', 'build')),
+	'app': os.path.abspath(os.path.join(os.path.dirname(__file__), 'app', 'build')),
 	'services': [
-		{
-			'module': Webcam,
-			'settings': {
-				'camera': 0
-			}
-		},
-		{
-			'module': Potentiometer,
-			'settings': {
-				'CLKPIN'
-			}
-		}
+		Webcam
 	]
 })
 
 
 if __name__ == '__main__':
-	app({})
+	app()
