@@ -24,14 +24,14 @@ class Relay(object):
     def __del__(self,*args,**kwargs):
         GPIO.cleanup()
     
-    if __name__ == '__main__':
-        config = {
-            'relay1' : {
-                'PIN1' : 17
-                'PIN2' : 27
-                'PIN3' : 22
-            },
+if __name__ == '__main__':
+    config = {
+        'relay1' : {
+            'PIN1' : 17
+            'PIN2' : 27
+            'PIN3' : 22
         }
+    }
     
 
-    relay1 = Relay(settings = config['relay1'])
+relay1 = Relay(settings = config['relay1'])
