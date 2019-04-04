@@ -1,6 +1,5 @@
 import os
 import flask
-# import multiprocessing
 
 class Mavhawk(object):
 
@@ -25,8 +24,6 @@ class Mavhawk(object):
 			path = os.path.join('/', serviceInstance.__name__, str(serviceInstance._id))
 			self.app.route(path, endpoint=path, methods=['GET', 'POST'])(serviceInstance.__call__)
 
-		# self.process = multiprocessing.Process(target=self.app.run(host='0.0.0.0', debug=False))
-
 	def __call__(self, *args, **kwargs):
 		# self.process.start()
 		self.app.run(host='0.0.0.0', debug=False)
@@ -41,5 +38,3 @@ class Mavhawk(object):
 		shutdown = flask.request.environ.get('werkzeug.server.shutdown')
 		shutdown()
 		return "Shutting down Mavhawk..."
-		# self.process.terminate()
-		# self.process.join()
