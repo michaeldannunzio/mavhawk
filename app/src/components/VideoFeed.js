@@ -16,7 +16,7 @@ class VideoFeed extends React.Component {
 
 		return (
 			<Card className={classes.videofeed}>
-				<img className={classes.media} src='/webcam' alt='video feed' />
+				<img className={classes.media} src='/webcam/1' alt='video feed' />
 				{/* <iframe title='feed' className={classes.media} src={v}></iframe> */}
 			</Card>
 		);

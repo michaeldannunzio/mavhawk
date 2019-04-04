@@ -23,7 +23,7 @@ class Mavhawk(object):
 		for ServiceClass in self.settings['services']:
 			serviceInstance = ServiceClass(flask=flask)
 			path = os.path.join('/', serviceInstance.__name__, str(serviceInstance._id))
-			self.app.route(path, endpoint=path)(serviceInstance.__call__)
+			self.app.route(path, endpoint=path, methods=['GET', 'POST'])(serviceInstance.__call__)
 
 		# self.process = multiprocessing.Process(target=self.app.run(host='0.0.0.0', debug=False))
 

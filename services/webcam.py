@@ -7,6 +7,7 @@ class Webcam(object):
 
 	__name__ = 'webcam'
 	_id = 1
+	_record = False
 
 	settings = {
 		'camera': 0,
@@ -27,18 +28,37 @@ class Webcam(object):
 
 		self.fourcc = cv2.VideoWriter_fourcc(*self.settings['fourcc'])
 		self.output = cv2.VideoWriter(
-			'session.mp4',
+			'data/session.mp4',
 			self.fourcc,
 			self.settings['fps'],
 			self.resolution
 		)
 
 	def __call__(self, *args, **kwargs):
-		pass
+		if self.kwargs['flask'].request.method == 'POST':
+			self._record = not self._record
+		else:
+			return self.sendFrame()
 
 	def __del__(self):
 		self.output.release()
 		self.capture.release()
+
+	def getImage(self):
+		success, frame = self.capture.read()
+		if self._record == True:
+			self.output.write(frame)
+		ret, jpeg = cv2.imencode('.jpeg', frame)
+		return jpeg.tobytes()
+
+	def genImage(self):
+		while True:
+			image = self.getImage()
+			yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + image + b'\r\n\r\n')
+
+	def sendFrame(self):
+		# content = self.getFrame()
+		return self.kwargs['flask'].Response(self.genImage(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 if __name__ == '__main__':

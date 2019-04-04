@@ -10,11 +10,30 @@ class VoltageController(object):
 
 		self.potentiometer = Potentiometer(**self.kwargs)
 
-	def __call__(self, *args, **kwargs):
-		voltage = kwargs['voltage']
 
-		value = calculateWiperValue(voltage)
-		self.potentiometer(value)
+
+
+
+
+
+
+
+
+	def __call__(self, *args, **kwargs):
+		if self.kwargs['flask'].request.method == 'POST':
+			voltage = self.kwargs['flask'].request.data
+			value = calculateWiperValue(voltage)
+			self.potentiometer(value)
+
+
+
+
+
+
+
+
+
+
 
 	def __del__(self, *args, **kwargs):
 		pass
