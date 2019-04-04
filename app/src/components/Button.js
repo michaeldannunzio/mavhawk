@@ -16,7 +16,7 @@ const Button = (props) => {
 			type: 'light',
 			primary: {
 				main: props.color,
-				contrastText: 'rgb(250, 250, 250)'
+				contrastText: props.textColor
 			},
 		},
 		typography: { useNextVariants: true }

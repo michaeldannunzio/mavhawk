@@ -25,9 +25,9 @@ class Controls extends React.Component {
 
 		return (
 			<Card className={classes.controls}>
-				<Input />
-				<Input />
-				<Input />
+				<Input id={1} />
+				<Input id={2} />
+				<Input id={3} />
 			</Card>
 		);
 	}

@@ -18,22 +18,30 @@ class Input extends React.Component {
 
 	render() {
 		const { classes } = this.props;
+		const label = `Cell ${this.props.id}`;
 
 		return (
 			<div className={classes.inputBase}>
-				<IconButton className={classes.button} color='inherit'>
-					<ArrowLeftRounded className={classes.icon} />
-				</IconButton>
-				<TextField
+				{/* <TextField
           id="cell"
-          label="Cell 1"
+          label={label}
 					className={classes.inputField}
 					margin='normal'
           variant="outlined"
+        /> */}
+				<TextField
+          id={this.props.id}
+          label={label}
+          value={this.props.value}
+          // onChange={this.handleChange('value')}
+          type="number"
+          className={classes.inputField}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          margin="normal"
+          variant="outlined"
         />
-				<IconButton className={classes.button} color='inherit'>
-					<ArrowRightRounded className={classes.icon} />
-				</IconButton>
 			</div>
 		);
 	}
@@ -50,20 +58,10 @@ const styles = (theme) => ({
 		marginTop: theme.spacing.unit * 2,
 		marginBottom: theme.spacing.unit * 2,
 	},
-	button: {
-		margin: theme.spacing.unit,
-		marginTop: 24,
-		padding: 0,
-	},
-	icon: {
-		margin: 0,
-		height: 40,
-		width: 40,
-	},
 	inputField: {
-		marginLeft: theme.spacing.unit,
-		marginRight: theme.spacing.unit,
-		width: 100,
+		marginLeft: theme.spacing.unit * 4,
+		marginRight: theme.spacing.unit * 4,
+		width: 200,
 	},
 });
 

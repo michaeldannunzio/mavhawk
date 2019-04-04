@@ -18,6 +18,7 @@ import CloudUploadIconRounded from '@material-ui/icons/CloudUploadRounded';
 import PlayArrowRounded from '@material-ui/icons/PlayArrowRounded';
 import StopRounded from '@material-ui/icons/StopRounded';
 import PowerSettingsNewRounded from '@material-ui/icons/PowerSettingsNewRounded';
+import VideocamRounded from '@material-ui/icons/VideocamRounded';
 
 /* Source imports */
 import { configure } from '../util';
@@ -50,11 +51,19 @@ class Appbar extends React.Component {
         <div className={classes.toolbar} />
         <Divider />
         <div className={classes.divider}>
-          <Button onClick={this.props.startSession} color='rgb(70, 220, 10)'>
+          <Button
+            onClick={this.props.startSession}
+            color='rgb(70, 220, 10)'
+            textColor='rgb(250, 250, 250)'
+          >
             <PlayArrowRounded className={classes.icon} />
             Start
           </Button>
-          <Button onClick={this.props.endSession} color='rgb(240, 60, 50)'>
+          <Button
+            onClick={this.props.endSession}
+            color='rgb(240, 60, 50)'
+            textColor='rgb(250, 250, 250)'
+          >
             <StopRounded className={classes.icon} />
             End
           </Button>
@@ -67,13 +76,13 @@ class Appbar extends React.Component {
             type="file"
           />
           <label htmlFor="contained-button-file">
-            <Button onClick={this.props.importSession} color='rgb(20, 100, 250)'>
+            <Button onClick={this.props.importSession} color='rgb(20, 100, 250)' textColor='rgb(250, 250, 250)'>
               <CloudUploadIconRounded className={classes.icon} />
               Import
             </Button>
           </label>
           <a className={classes.download} href={logo} download>
-            <Button onClick={this.props.exportSession} color='rgb(150, 50, 150)'>
+            <Button onClick={this.props.exportSession} color='rgb(150, 50, 150)' textColor='rgb(250, 250, 250)'>
               <CloudDownloadIconRounded className={classes.icon} />
               Export
             </Button>
@@ -81,9 +90,13 @@ class Appbar extends React.Component {
         </div>
         <Divider />
         <div className={classes.divider}>
-          <Button onClick={this.props.togglePower} color='rgb(0, 0, 0)'>
-            <PowerSettingsNewRounded className={classes.icon} />
+          <Button onClick={this.props.togglePower} color='rgb(250, 250, 250)' textColor='rgb(20, 20, 20)'>
+            <PowerSettingsNewRounded className={classes.icon} style={{fill: this.props.recording ? 'rgb(255, 0, 0)' : 'rgb(0, 255, 0)' }} />
             Power
+          </Button>
+          <Button onClick={this.props.toggleVideo} color='rgb(250, 250, 250)' textColor='rgb(20, 20, 20)'>
+            <VideocamRounded className={classes.icon}  style={{fill: this.props.recording ? 'rgb(255, 0, 0)' : 'rgb(0, 255, 0)' }} />
+            Record
           </Button>
         </div>
         <Divider />
