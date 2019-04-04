@@ -2,7 +2,7 @@ from potentiometer import Potentiometer
 
 class VoltageController(object):
 
-	__name__ = 'voltage_controller'
+	__name__ = 'voltage_control'
 	_count = 0
 
 	settings = {
