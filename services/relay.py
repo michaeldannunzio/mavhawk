@@ -32,6 +32,4 @@ if __name__ == '__main__':
             'PIN3' : 22
         }
     }
-    
-
-relay1 = Relay(settings = config['relay1'])
+    relay1 = Relay(settings = config['relay1'])
