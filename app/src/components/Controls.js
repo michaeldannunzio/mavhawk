@@ -6,6 +6,7 @@ import { Card } from '@material-ui/core';
 /* Source imports */
 import { configure } from '../util';
 import Input from './Input';
+import Slider from './Slider';
 
 /* Component styles */
 const styles = (theme) => ({
@@ -25,9 +26,12 @@ class Controls extends React.Component {
 
 		return (
 			<Card className={classes.controls}>
-				<Input id={1} />
-				<Input id={2} />
-				<Input id={3} />
+				<Slider id={1} />
+				<Slider id={2} />
+				<Slider id={3} />
+				{/* <Input id={1} /> */}
+				{/* <Input id={2} /> */}
+				{/* <Input id={3} /> */}
 			</Card>
 		);
 	}
