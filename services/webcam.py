@@ -1,6 +1,6 @@
 # Library imports
 import cv2
-from pprint import pprint
+
 
 # Service definition
 class Webcam(object):
@@ -50,17 +50,17 @@ class Webcam(object):
 			return self.sendFrame()
 
 	def __del__(self):
+		print('camquit')
 		self.output.release()
 		self.capture.release()
 
 	def getImage(self):
 		success, frame = self.capture.read()
 		if self._record == True:
-			pass
-			# print("RECORDING")
-		else:
 			self.output.write(frame)
-			# print('waiting...')
+			print("RECORDING")
+		else:
+			print('waiting...')
 		ret, jpeg = cv2.imencode('.jpeg', frame)
 		return jpeg.tobytes()
 

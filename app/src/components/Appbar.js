@@ -19,6 +19,8 @@ import PlayArrowRounded from '@material-ui/icons/PlayArrowRounded';
 import StopRounded from '@material-ui/icons/StopRounded';
 import PowerSettingsNewRounded from '@material-ui/icons/PowerSettingsNewRounded';
 import VideocamRounded from '@material-ui/icons/VideocamRounded';
+import HighlightOffRounded from '@material-ui/icons/HighlightOffRounded';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 /* Source imports */
@@ -65,9 +67,11 @@ class Appbar extends React.Component {
     axios.post('/webcam/1', {
       recording: this.state.recording
     });
-    // axios.post('/webcam/1', {
-    //   recording: this.state.recording
-    // });
+  };
+
+  shutdownApp = () => {
+    window.setTimeout(() => axios.post('/exit'), 5000);
+    // axios.post('/exit');
   };
   
   render() {
@@ -168,6 +172,11 @@ class Appbar extends React.Component {
 							Dashboard
 						</Typography>
 						<img className={classes.logo} src={logo} alt='logo' />
+            <Link to='/shutdown'>
+              <IconButton className={classes.shutdown} onClick={this.shutdownApp}>
+                <HighlightOffRounded className={classes.shutdownIcon} />
+              </IconButton>
+            </Link>
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer}>
@@ -266,6 +275,14 @@ const styles = theme => ({
   },
   download: {
     textDecoration: 'none',
+  },
+  shutdown: {
+    color: 'rgb(200, 200, 200)'
+  },
+  shutdownIcon: {
+    color: 'rgb(255, 50, 70)',
+    height: 30,
+    width: 30,
   },
 });
 
