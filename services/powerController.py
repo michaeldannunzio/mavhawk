@@ -1,4 +1,5 @@
 from relay import Relay
+import datetime
 
 class PowerController(object):
 
@@ -9,8 +10,8 @@ class PowerController(object):
 	settings = {}
 
 	def __init__(self, *args, **kwargs):
-		self.args
-		self.kwargs
+		self.args = args
+		self.kwargs = kwargs
 
 		PowerController._count += 1
 		self.id = PowerController._count
@@ -22,6 +23,10 @@ class PowerController(object):
 	def __call__(self, *args, **kwargs):
 		if self.kwargs['flask'].request.method == 'POST':
 			self.state = not self.state
+			
+			for i in range(3):
+				voltageController = self.kwargs['mavhawk'].services['voltage_control_{}'.format(str(i+1))]
+				voltageController.start_time = datetime.datetime.now()
 
 		res = []
 		for relay in self.relays:
@@ -29,7 +34,7 @@ class PowerController(object):
 		return self.kwargs['flask'].jsonify(res)
 			
 	def __del__(self, *args, **kwargs):
-		pass
+		print(self.__name__ + 'has shutdown.')
 
 
 if __name__ == '__main__':

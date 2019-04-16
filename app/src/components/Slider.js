@@ -13,8 +13,15 @@ import { configure } from '../util';
 class Slider extends React.Component {
 	state = {
     value: 0,
-  };
-
+	};
+	
+	componentDidMount() {
+		// const path = `/voltage_control/${this.props.id}`
+		// axios.post(path, {
+		// 	voltage: this.state.value
+		// });
+	}
+	
   handleChange = (event, value) => {
 		const path = `/voltage_control/${this.props.id}`
 		axios.post(path, {

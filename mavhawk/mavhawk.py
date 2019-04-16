@@ -5,7 +5,7 @@ import flask
 class Mavhawk(object):
 
 	settings = {}
-	services = []
+	services = {}
 	app = None
 
 	def __init__(self, settings):
@@ -21,11 +21,10 @@ class Mavhawk(object):
 		self.app.route('/shutdown', methods=['POST'])(self.exitRoute)
 
 		for ServiceClass in self.settings['services']:
-			serviceInstance = ServiceClass(flask=flask)
+			serviceInstance = ServiceClass(flask=flask, mavhawk=self)
 			path = os.path.join('/', serviceInstance.__name__, str(serviceInstance.id))
-			print(path)
 			self.app.route(path, endpoint=path, methods=['GET', 'POST'])(serviceInstance.__call__)
-
+			self.services[serviceInstance.__name__ + '_' + str(serviceInstance.id)] = serviceInstance
 
 	def __call__(self, *args, **kwargs):
 		self.app.run(threaded=True)
@@ -40,8 +39,9 @@ class Mavhawk(object):
 		return flask.render_template('index.html')
 
 	def exitRoute(self):
-		for service in self.services:
-			service.__del__()
+		for service in self.services.itervalues():
+			try: del service
+			except: service.__del__()
 		shutdown = flask.request.environ.get('werkzeug.server.shutdown')
 		shutdown()
 		return "Mavhawk shutting down..."

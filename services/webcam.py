@@ -1,5 +1,6 @@
 # Library imports
 import cv2
+import datetime
 
 
 # Service definition
@@ -8,6 +9,7 @@ class Webcam(object):
 	__name__ = 'webcam'
 	_count = 0
 	_record = False
+	_timestamp = None
 	_outputCount = 0
 
 	settings = {
@@ -37,13 +39,13 @@ class Webcam(object):
 		self.output = None
 
 	def __call__(self, *args, **kwargs):
-
 		if self.kwargs['flask'].request.method == 'POST':
 			self._record = not self._record
-
-			if self._record == True:
+			
+			if self.output is None:
+				self._timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 				self.output = cv2.VideoWriter(
-					self.settings['filepath'] + self.settings['filename'] + str(self._outputCount) + self.settings['extension'],
+					self.outputFile(),
 					self.fourcc,
 					self.settings['fps'],
 					self.resolution
@@ -54,18 +56,19 @@ class Webcam(object):
 			else:
 				self.output.release()
 				self.output = None
-
-			return str(self._record)
+			
+			return kwargs['flask'].request.jsonify({'recording': str(self._record)})
 
 		else:
 			return self.sendFrame()
 
 	def __del__(self):
 		self.capture.release()
+		print(self.__name__ + 'has shutdown.')
 
 	def getImage(self):
 		success, frame = self.capture.read()
-		if self._record == True:
+		if self.output is not None:
 			self.output.write(frame)
 		ret, jpeg = cv2.imencode('.jpeg', frame)
 		return jpeg.tobytes()
@@ -77,6 +80,9 @@ class Webcam(object):
 
 	def sendFrame(self):
 		return self.kwargs['flask'].Response(self.genImage(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+	def outputFile(self):
+		return self.settings['filepath'] + self.settings['filename'] + str(self._timestamp) + self.settings['extension']
 
 
 if __name__ == '__main__':

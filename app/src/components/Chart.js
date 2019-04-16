@@ -30,7 +30,8 @@ const styles = (theme) => ({
 /* Component definition */
 class Chart extends React.Component {
 	state = {
-		data: Array(60).fill({ time: '', C1: 0, C2: 0, C3: 0 }),
+		data: [{ time: '', C1: 0, C2: 0, C3: 0 }],
+		status: false,
 		brush: {
 			startIndex: 0,
 			endIndex: 59
@@ -66,15 +67,33 @@ class Chart extends React.Component {
 			C3: c3.data.value,
 		};
 
-		this.setState({
-			data: [...this.state.data, newData],
-		});
+		console.log(c1.data);
 
+		if (c1.data.status === "True") {
+			if (this.state.status === false) {
+				this.setState({
+					data: [{ time: '', C1: 0, C2: 0, C3: 0 }],
+				});
+			}
+			
+			
+			this.setState({
+				data: [...this.state.data, newData],
+				status: true,
+			});
+		}
+
+		else {
+			this.setState({
+				status: false,
+			});
+		}
+		
 		if (this.state.brush.endIndex >= this.state.data.length * 0.9) {
 			this.setState({
 				brush: {
 					// startIndex: this.state.data.startIndex ,
-					startIndex: this.state.data.length - 60,
+					startIndex: this.state.data.length > 60 ? this.state.data.length - 60 : 0,
 					// this.state.data.length - 20,
 					endIndex: this.state.data.length
 				}

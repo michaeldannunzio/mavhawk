@@ -1,5 +1,5 @@
 from potentiometer import Potentiometer
-import time
+import datetime
 
 class VoltageController(object):
 
@@ -22,21 +22,23 @@ class VoltageController(object):
 
 		self.potentiometer = Potentiometer(**self.kwargs)
 
-		self.start_time = time.time()
-		self.current_time = time.time()
+		self.start_time = datetime.datetime.now()
+		self.current_time = self.start_time
 
 	def __call__(self, *args, **kwargs):
-		self.current_time = time.time()
-		
 		if self.kwargs['flask'].request.method == 'POST':
 			self.outputVoltage = round(float(self.kwargs['flask'].request.data.rstrip('}').split(':')[-1]), 1)
 			self.stepUpVoltage = self.calculateStepUpVoltage(self.outputVoltage)
 			self.value = self.calculateWiperValue(self.outputVoltage)
 			self.potentiometer(value=self.value)
-		return self.kwargs['flask'].jsonify({ 'value': self.outputVoltage, 'time': self.getTime() })
+		return self.kwargs['flask'].jsonify({
+			'value': self.outputVoltage,
+			'time': self.getTime(),
+			'status': str(self.kwargs['mavhawk'].services['power_control_1'].state)
+		})
 
 	def __del__(self, *args, **kwargs):
-		pass
+		print(self.__name__ + 'has shutdown.')
 
 	def calculateStepUpVoltage(self, voltage):
 		return voltage * self.settings['stepUpValue']
@@ -45,8 +47,11 @@ class VoltageController(object):
 		value = 128 * (1 - (voltage / self.settings['vcc']))
 
 	def getTime(self):
-		return str(int(self.current_time-self.start_time))
-
+		if self.kwargs['mavhawk'].services['power_control_1'].state:
+			self.current_time = datetime.datetime.now()
+		else:
+			self.current_time = self.start_time
+		return ':'.join(str(self.current_time-self.start_time).split('.')[0].split(':')[1:])
 
 
 if __name__ == '__main__':
