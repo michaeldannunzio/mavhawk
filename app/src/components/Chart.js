@@ -1,6 +1,7 @@
 /* Library imports */
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { Card } from '@material-ui/core';
 import {
 	ResponsiveContainer,
@@ -10,7 +11,8 @@ import {
 	YAxis,
 	Tooltip,
 	Legend,
-	Line
+	Line,
+	Brush
 } from 'recharts';
 
 /* Source imports */
@@ -19,31 +21,59 @@ import { configure } from '../util';
 /* Component styles */
 const styles = (theme) => ({
 	chartBase: {
-		// height: '40%',
 		padding: theme.spacing.unit * 3,
 	},
 	container: {},
-	chart: {
-
-	},
+	chart: {},
 });
 
 const data = [
 	{ time: '0:00', C1: 0, C2: 0, C3: 0 },
-	{ time: '0:10', C1: 10, C2: 11, C3: 12 },
-	{ time: '0:20', C1: 10.1, C2: 11.5, C3: 14 },
-	{ time: '0:30', C1: 10.2, C2: 12, C3: 12 },
-	{ time: '0:40', C1: 10.3, C2: 12.5, C3: 10 },
-	{ time: '0:50', C1: 10.4, C2: 13, C3: 11 },
-	{ time: '1:00', C1: 10.5, C2: 13.5, C3: 12 },
-	{ time: '1:10', C1: 11, C2: 14, C3: 13 },
-	{ time: '1:20', C1: 11.5, C2: 14.5, C3: 14 },
-	{ time: '1:30', C1: 12, C2: 15, C3: 15 },
+	{ time: '0:01', C1: 0, C2: 5, C3: 0 },
+	{ time: '0:02', C1: 0, C2: 5, C3: 2 },
+	{ time: '0:02', C1: 1, C2: 0 },
 ];
 
 /* Component definition */
 class Chart extends React.Component {
-	state = {};
+	state = {
+		data: [
+			{ time: '0', C1: 0, C2: 0, C3: 0 },
+		],
+	};
+
+	componentDidMount() {
+		this.interval = setInterval(this.fetchData, 1000);
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.interval);
+	}
+
+	getBrushIndex = () => {
+		const len = this.state.data.length;
+		return len > 20 ? len - 20 : 0;
+	}
+
+	fetchData = async () => {
+
+		const c1 = await axios.get('/voltage_control/1');
+		const c2 = await axios.get('/voltage_control/2');
+		const c3 = await axios.get('/voltage_control/3');
+
+		console.log(c1.data, c2.data, c3.data);
+
+		const newData = {
+			time: c1.data.time,
+			C1: c1.data.value,
+			C2: c2.data.value,
+			C3: c3.data.value,
+		};
+
+		this.setState({
+			data: [...this.state.data, newData],
+		});
+	}
 
 	render() {
 		const { classes } = this.props;
@@ -54,17 +84,18 @@ class Chart extends React.Component {
 					<LineChart
 						width={600}
 						height={300}
-						data={this.props.data}
-						margin={{top: 2, right: 20, left: 0, bottom: 2}}
+						data={this.state.data}
+						margin={{top: 2, right: 40, left: 0, bottom: 2}}
 					>
-						<Legend iconSize='10' />
+						<Legend iconSize={10} />
 						<CartesianGrid strokeDasharray="3 3" />
-						<XAxis dataKey="Time" />
+						<XAxis dataKey="time" />
 						<YAxis />
 						<Tooltip />
-						<Line type="monotone" dataKey="C1" stroke="#8884d8" />
-						<Line type="monotone" dataKey="C2" stroke="#82ca9d" />
-						<Line type="monotone" dataKey="C3" stroke="#F5A34B" />
+						<Brush dataKey="time" height={30} stroke="#8884d8" startIndex={this.getBrushIndex()} />
+						<Line type="monotone" dataKey="C1" stroke="#8884d8" isAnimationActive={false} />
+						<Line type="monotone" dataKey="C2" stroke="#82ca9d" isAnimationActive={false} />
+						<Line type="monotone" dataKey="C3" stroke="#F5A34B" isAnimationActive={false} />
 					</LineChart>
 				</ResponsiveContainer>
 			</Card>

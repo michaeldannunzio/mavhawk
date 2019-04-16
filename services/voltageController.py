@@ -1,4 +1,5 @@
 from potentiometer import Potentiometer
+import time
 
 class VoltageController(object):
 
@@ -16,20 +17,23 @@ class VoltageController(object):
 
 		VoltageController._count += 1
 		self.id = VoltageController._count
+		self.value = 0
+		self.outputVoltage = 0
 
 		self.potentiometer = Potentiometer(**self.kwargs)
 
+		self.start_time = time.time()
+		self.current_time = time.time()
+
 	def __call__(self, *args, **kwargs):
+		self.current_time = time.time()
+		
 		if self.kwargs['flask'].request.method == 'POST':
-			outputVoltage = self.kwargs['flask'].request.data
-			stepUpVoltage = self.calculateStepUpVoltage(outputVoltage)
-			value = self.calculateWiperValue(outputVoltage)
-			self.potentiometer(value=value)
-			self.value = value
-		
-			return self.kwargs['flask'].jsonify({'value': self.value})
-		
-		return self.kwargs['flask'].jsonify({'value': value })
+			self.outputVoltage = round(float(self.kwargs['flask'].request.data.rstrip('}').split(':')[-1]), 1)
+			self.stepUpVoltage = self.calculateStepUpVoltage(self.outputVoltage)
+			self.value = self.calculateWiperValue(self.outputVoltage)
+			self.potentiometer(value=self.value)
+		return self.kwargs['flask'].jsonify({ 'value': self.outputVoltage, 'time': self.getTime() })
 
 	def __del__(self, *args, **kwargs):
 		pass
@@ -39,6 +43,10 @@ class VoltageController(object):
 
 	def calculateWiperValue(self, voltage):
 		value = 128 * (1 - (voltage / self.settings['vcc']))
+
+	def getTime(self):
+		return str(int(self.current_time-self.start_time))
+
 
 
 if __name__ == '__main__':

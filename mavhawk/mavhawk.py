@@ -38,9 +38,9 @@ class Mavhawk(object):
 		return flask.render_template('index.html')
 
 	def exitRoute(self):
-		# time.sleep(5)
-		# for service in self.services:
-			# del service
+		time.sleep(5)
+		for service in self.services:
+			del service
 
 		shutdown = flask.request.environ.get('werkzeug.server.shutdown')
 		shutdown()

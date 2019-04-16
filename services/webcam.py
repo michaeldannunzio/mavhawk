@@ -38,10 +38,6 @@ class Webcam(object):
 		)
 
 	def __call__(self, *args, **kwargs):
-
-		# pprint(dir(self.kwargs['flask'].request))
-		# print(self.kwargs['flask'].request.data)
-
 		if self.kwargs['flask'].request.method == 'POST':
 			self._record = not self._record
 			return str(self._record)
@@ -59,8 +55,6 @@ class Webcam(object):
 		if self._record == True:
 			self.output.write(frame)
 			print("RECORDING")
-		else:
-			print('waiting...')
 		ret, jpeg = cv2.imencode('.jpeg', frame)
 		return jpeg.tobytes()
 
@@ -70,7 +64,6 @@ class Webcam(object):
 			yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + image + b'\r\n\r\n')
 
 	def sendFrame(self):
-		# content = self.getFrame()
 		return self.kwargs['flask'].Response(self.genImage(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 

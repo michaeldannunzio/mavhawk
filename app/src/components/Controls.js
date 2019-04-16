@@ -5,7 +5,7 @@ import { Card } from '@material-ui/core';
 
 /* Source imports */
 import { configure } from '../util';
-import Input from './Input';
+// import Input from './Input';
 import Slider from './Slider';
 
 /* Component styles */

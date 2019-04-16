@@ -16,12 +16,12 @@ class Slider extends React.Component {
   };
 
   handleChange = (event, value) => {
-		this.setState({ value });
-		
 		const path = `/voltage_control/${this.props.id}`
 		axios.post(path, {
 			voltage: value
 		});
+
+		this.setState({ value });
   };
 
   render() {
@@ -33,7 +33,7 @@ class Slider extends React.Component {
       <div className={classes.root}>
 				<center>
 					<Typography className={classes.label} id="label">
-						{label}: {this.state.value} kV
+						<b>{label}</b>: {Math.round(this.state.value * 100) / 100} kV
 					</Typography>
 				</center>
         <MuiSlider
@@ -41,10 +41,9 @@ class Slider extends React.Component {
           value={value}
           min={0}
           max={8}
-          step={1}
+          step={0.1}
           onChange={this.handleChange}
         />
-				
       </div>
     );
   }
@@ -58,13 +57,11 @@ Slider.propTypes = {
 /* Component styles */
 const styles = (theme) => ({
 	root: {
+		marginLeft: theme.spacing.unit * 6,
 		width: 300,
 	},
-	label: {
-
-	},
+	label: {},
 	slider: {
-		marginLeft: theme.spacing.unit * 6,
 		padding: '22px 0px',
 	},
 });
