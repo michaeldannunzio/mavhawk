@@ -20,7 +20,6 @@ import StopRounded from '@material-ui/icons/StopRounded';
 import PowerSettingsNewRounded from '@material-ui/icons/PowerSettingsNewRounded';
 import VideocamRounded from '@material-ui/icons/VideocamRounded';
 import HighlightOffRounded from '@material-ui/icons/HighlightOffRounded';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 /* Source imports */
@@ -33,7 +32,7 @@ import {
   importSession,
   exportSession,
   togglePower,
-  toggleVideo
+  // toggleVideo
 } from '../store';
 
 
@@ -70,8 +69,8 @@ class Appbar extends React.Component {
   };
 
   shutdownApp = () => {
-    window.setTimeout(() => axios.post('/exit'), 5000);
-    // axios.post('/exit');
+    // window.setTimeout(() => axios.post('/exit'), 5000);
+    axios.post('/shutdown');
   };
   
   render() {
@@ -172,11 +171,9 @@ class Appbar extends React.Component {
 							Dashboard
 						</Typography>
 						<img className={classes.logo} src={logo} alt='logo' />
-            <Link to='/shutdown'>
               <IconButton className={classes.shutdown} onClick={this.shutdownApp}>
                 <HighlightOffRounded className={classes.shutdownIcon} />
               </IconButton>
-            </Link>
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer}>

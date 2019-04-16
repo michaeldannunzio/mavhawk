@@ -59,19 +59,19 @@ class Potentiometer(object):
 if __name__ == '__main__':
 	config = {
 	    'pot1': {
-	        'CS' : 21
-	        'CLK' : 26
-	        'MOSI' : 20
+	        'CS': 21,
+	        'CLK': 26,
+	        'MOSI': 20,
 	    },
 	    'pot2': {
-	        'CS' : 19
-	        'CLK' : 16
-	        'MOSI' : 13
+	        'CS': 19,
+	        'CLK': 16,
+	        'MOSI': 13,
 	    },
 	    'pot3': {
-	        'CS' : 6
-	        'CLK' : 12
-	        'MOSI' : 5
+	        'CS': 6,
+	        'CLK': 12,
+	        'MOSI': 5,
 	    },
 	}
 

@@ -27,19 +27,14 @@ const styles = (theme) => ({
 	chart: {},
 });
 
-const data = [
-	{ time: '0:00', C1: 0, C2: 0, C3: 0 },
-	{ time: '0:01', C1: 0, C2: 5, C3: 0 },
-	{ time: '0:02', C1: 0, C2: 5, C3: 2 },
-	{ time: '0:02', C1: 1, C2: 0 },
-];
-
 /* Component definition */
 class Chart extends React.Component {
 	state = {
-		data: [
-			{ time: '0', C1: 0, C2: 0, C3: 0 },
-		],
+		data: Array(60).fill({ time: '', C1: 0, C2: 0, C3: 0 }),
+		brush: {
+			startIndex: 0,
+			endIndex: 59
+		}
 	};
 
 	componentDidMount() {
@@ -50,18 +45,19 @@ class Chart extends React.Component {
 		clearInterval(this.interval);
 	}
 
-	getBrushIndex = () => {
-		const len = this.state.data.length;
-		return len > 20 ? len - 20 : 0;
+	handleBrushChange = ({ startIndex, endIndex }) => {
+		this.setState({
+			brush: {
+				startIndex,
+				endIndex
+			}
+		});
 	}
 
 	fetchData = async () => {
-
 		const c1 = await axios.get('/voltage_control/1');
 		const c2 = await axios.get('/voltage_control/2');
 		const c3 = await axios.get('/voltage_control/3');
-
-		console.log(c1.data, c2.data, c3.data);
 
 		const newData = {
 			time: c1.data.time,
@@ -73,6 +69,17 @@ class Chart extends React.Component {
 		this.setState({
 			data: [...this.state.data, newData],
 		});
+
+		if (this.state.brush.endIndex >= this.state.data.length * 0.9) {
+			this.setState({
+				brush: {
+					// startIndex: this.state.data.startIndex ,
+					startIndex: this.state.data.length - 60,
+					// this.state.data.length - 20,
+					endIndex: this.state.data.length
+				}
+			})
+		}
 	}
 
 	render() {
@@ -85,14 +92,20 @@ class Chart extends React.Component {
 						width={600}
 						height={300}
 						data={this.state.data}
-						margin={{top: 2, right: 40, left: 0, bottom: 2}}
+						margin={{top: 2, right: 40, left: -5, bottom: 2}}
 					>
 						<Legend iconSize={10} />
 						<CartesianGrid strokeDasharray="3 3" />
 						<XAxis dataKey="time" />
 						<YAxis />
 						<Tooltip />
-						<Brush dataKey="time" height={30} stroke="#8884d8" startIndex={this.getBrushIndex()} />
+						<Brush
+							dataKey="time" height={30} stroke="#8884d8"
+							startIndex={this.state.brush.startIndex}
+							endIndex={this.state.brush.endIndex}
+							onChange={this.handleBrushChange}
+							gap={5}
+						/>
 						<Line type="monotone" dataKey="C1" stroke="#8884d8" isAnimationActive={false} />
 						<Line type="monotone" dataKey="C2" stroke="#82ca9d" isAnimationActive={false} />
 						<Line type="monotone" dataKey="C3" stroke="#F5A34B" isAnimationActive={false} />
@@ -109,9 +122,7 @@ Chart.propTypes = {
 };
 
 /* Map state to props */
-const store = (state, props) => ({
-	data: data,
-});
+const store = (state, props) => ({});
 
 /* Chart actions */
 const actions = {};

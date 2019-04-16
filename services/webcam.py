@@ -8,11 +8,15 @@ class Webcam(object):
 	__name__ = 'webcam'
 	_count = 0
 	_record = False
+	_outputCount = 0
 
 	settings = {
 		'camera': 0,
 		'fps': 30.0,
 		'fourcc': 'mp4v',
+		'filepath': 'data/',
+		'filename': 'session',
+		'extension': '.mp4',
 	}
 
 	def __init__(self, *args, **kwargs):
@@ -30,31 +34,39 @@ class Webcam(object):
 		self.resolution = (self.width, self.height)
 
 		self.fourcc = cv2.VideoWriter_fourcc(*self.settings['fourcc'])
-		self.output = cv2.VideoWriter(
-			'data/session.mp4',
-			self.fourcc,
-			self.settings['fps'],
-			self.resolution
-		)
+		self.output = None
 
 	def __call__(self, *args, **kwargs):
+
 		if self.kwargs['flask'].request.method == 'POST':
 			self._record = not self._record
+
+			if self._record == True:
+				self.output = cv2.VideoWriter(
+					self.settings['filepath'] + self.settings['filename'] + str(self._outputCount) + self.settings['extension'],
+					self.fourcc,
+					self.settings['fps'],
+					self.resolution
+				)
+
+				self._outputCount += 1
+
+			else:
+				self.output.release()
+				self.output = None
+
 			return str(self._record)
 
 		else:
 			return self.sendFrame()
 
 	def __del__(self):
-		print('camquit')
-		self.output.release()
 		self.capture.release()
 
 	def getImage(self):
 		success, frame = self.capture.read()
 		if self._record == True:
 			self.output.write(frame)
-			print("RECORDING")
 		ret, jpeg = cv2.imencode('.jpeg', frame)
 		return jpeg.tobytes()
 

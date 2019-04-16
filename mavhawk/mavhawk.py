@@ -1,5 +1,4 @@
 import os
-import time
 import flask
 
 
@@ -19,7 +18,7 @@ class Mavhawk(object):
 		)
 
 		self.app.route('/')(self.indexRoute)
-		self.app.route('/exit', methods=['POST'])(self.exitRoute)
+		self.app.route('/shutdown', methods=['POST'])(self.exitRoute)
 
 		for ServiceClass in self.settings['services']:
 			serviceInstance = ServiceClass(flask=flask)
@@ -27,21 +26,22 @@ class Mavhawk(object):
 			print(path)
 			self.app.route(path, endpoint=path, methods=['GET', 'POST'])(serviceInstance.__call__)
 
+
 	def __call__(self, *args, **kwargs):
 		self.app.run(threaded=True)
 		del self.app
 
 	def __del__(self):
-		pass
+		for service in self.services:
+			service.__del__()
+		print('Shutdown successfully.')
 
 	def indexRoute(self):
 		return flask.render_template('index.html')
 
 	def exitRoute(self):
-		time.sleep(5)
 		for service in self.services:
-			del service
-
+			service.__del__()
 		shutdown = flask.request.environ.get('werkzeug.server.shutdown')
 		shutdown()
 		return "Mavhawk shutting down..."
