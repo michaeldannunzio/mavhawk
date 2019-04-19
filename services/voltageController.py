@@ -8,7 +8,7 @@ class VoltageController(object):
 
 	settings = {
 		'vcc': 5,
-		'stepUpValue': 1571
+		'stepUpValue': 1600
 	}
 
 	def __init__(self, *args, **kwargs):
@@ -44,7 +44,7 @@ class VoltageController(object):
 		return voltage * self.settings['stepUpValue']
 
 	def calculateWiperValue(self, voltage):
-		value = 128 * (1 - (voltage / self.settings['vcc']))
+		value = 25.6 * ((voltage *1000) / self.settings['stepUpValue'])
 
 	def getTime(self):
 		if self.kwargs['mavhawk'].services['power_control_1'].state:
