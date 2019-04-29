@@ -57,14 +57,14 @@ class Webcam(object):
 				self.output.release()
 				self.output = None
 			
-			return kwargs['flask'].request.jsonify({'recording': str(self._record)})
+			return self.kwargs['flask'].request.jsonify({'recording': str(self._record)})
 
 		else:
 			return self.sendFrame()
 
-	def __del__(self):
+	def shutdown(self):
 		self.capture.release()
-		print(self.__name__ + 'has shutdown.')
+		print(self.__name__ + ' has shutdown.')
 
 	def getImage(self):
 		success, frame = self.capture.read()

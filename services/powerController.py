@@ -7,7 +7,13 @@ class PowerController(object):
 	_count = 0
 	state = False
 	
-	settings = {}
+	settings = {
+		'relays': [
+			{ 'PIN': 17 },
+			{ 'PIN': 22 },
+			{ 'PIN': 27 }
+		]
+	}
 
 	def __init__(self, *args, **kwargs):
 		self.args = args
@@ -17,13 +23,12 @@ class PowerController(object):
 		self.id = PowerController._count
 
 		self.relays = []
-		for relay in self.kwargs['relays']:
+		for relay in self.settings['relays']:
 			self.relays.append(Relay(PIN=relay['PIN']))
 
 	def __call__(self, *args, **kwargs):
 		if self.kwargs['flask'].request.method == 'POST':
 			self.state = not self.state
-			
 			for i in range(3):
 				voltageController = self.kwargs['mavhawk'].services['voltage_control_{}'.format(str(i+1))]
 				voltageController.start_time = datetime.datetime.now()
@@ -31,20 +36,12 @@ class PowerController(object):
 		res = []
 		for relay in self.relays:
 			res.append(relay(state=self.state))
+
 		return self.kwargs['flask'].jsonify(res)
 			
-	def __del__(self, *args, **kwargs):
+	def shutdown(self, *args, **kwargs):
 		print(self.__name__ + 'has shutdown.')
 
 
 if __name__ == '__main__':
-	config = {
-		'relays': [
-			{ 'PIN': 17 },
-			{ 'PIN': 22 },
-			{ 'PIN': 27 }
-		]
-	}
-
-	power = PowerController(**config)
-	
+	pass

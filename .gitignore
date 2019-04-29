@@ -1,11 +1,10 @@
-**node_modules/
-**.vscode/
-**.env
 **.DS_Store
-**package-lock.json
+**.vscode/
 **.zip
-**.txt
-**ref/
-**__pycache__/
+**.env
+**node_modules/
 **.pyc
+**__pycache__/
 **.mp4
+**ref/
+**.txt

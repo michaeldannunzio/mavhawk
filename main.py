@@ -19,3 +19,4 @@ app = Mavhawk({
 
 if __name__ == '__main__':
 	app()
+	os.system('sudo shutdown -h now')

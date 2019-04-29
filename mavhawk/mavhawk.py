@@ -27,21 +27,18 @@ class Mavhawk(object):
 			self.services[serviceInstance.__name__ + '_' + str(serviceInstance.id)] = serviceInstance
 
 	def __call__(self, *args, **kwargs):
-		self.app.run(threaded=True)
+		self.app.run(threaded=True, host='0.0.0.0')
 		del self.app
 
 	def __del__(self):
-		for service in self.services:
-			service.__del__()
-		print('Shutdown successfully.')
+		print('Mavhawk has shutdown successfully.')
 
 	def indexRoute(self):
 		return flask.render_template('index.html')
 
 	def exitRoute(self):
 		for service in self.services.itervalues():
-			try: del service
-			except: service.__del__()
+			service.shutdown()
 		shutdown = flask.request.environ.get('werkzeug.server.shutdown')
 		shutdown()
 		return "Mavhawk shutting down..."
