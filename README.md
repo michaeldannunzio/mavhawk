@@ -7,11 +7,8 @@ The Mavhawk software was built as a control system to carry out our research. It
 ## **Dependencies**
 
 * [Git]()
-* [Node.js](https://nodejs.org/en/)
-* [npm](https://www.npmjs.com/get-npm)
 * [Python 2.7](https://www.python.org/downloads/)
 * [pip]()
-* [OpenCV 4.0]()
 
 ## **Installation**
 
@@ -44,6 +41,8 @@ python main.py
 ```
 
 To shutdown the Mavhawk application, there is a run icon button located at the top righthand side of the dashboard. When it is clicked, the application will shutdown and your Raspberry Pi will shutdown with it.
+
+**NOTE**: The application is not fully functional. There are components of the dashboard without implemented functionality.
 
 ## **License**
 
