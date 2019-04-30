@@ -15,13 +15,6 @@ class Slider extends React.Component {
     value: 0,
 	};
 	
-	componentDidMount() {
-		// const path = `/voltage_control/${this.props.id}`
-		// axios.post(path, {
-		// 	voltage: this.state.value
-		// });
-	}
-	
   handleChange = (event, value) => {
 		const path = `/voltage_control/${this.props.id}`
 		axios.post(path, {
@@ -73,17 +66,9 @@ const styles = (theme) => ({
 	},
 });
 
-/* Map state to props */
-const store = (state, props) => ({});
-
-/* Component actions */
-const actions = {};
-
 /* Component configurations */
 const options = {
 	styles,
-	store,
-	actions
 };
 
 /* Module exports */

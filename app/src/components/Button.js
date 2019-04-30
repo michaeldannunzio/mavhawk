@@ -40,9 +40,6 @@ const Button = (props) => {
 /* Button prop-types */
 Button.propTypes = {
 	classes: PropTypes.object.isRequired,
-	// color: PropTypes.string.isRequired,
-	// children: PropTypes.isRequired,
-	// onClick: PropTypes.func.isRequired,
 };
 
 /* Component styles */
@@ -55,17 +52,9 @@ const styles = (theme) => ({
 	},
 });
 
-/* Map state to props */
-const store = (state, props) => ({});
-
-/* Component actions */
-const actions = {};
-
 /* Component configurations */
 const options = {
 	styles,
-	store,
-	actions
 };
 
 /* Module exports */

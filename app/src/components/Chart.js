@@ -67,8 +67,6 @@ class Chart extends React.Component {
 			C3: c3.data.value,
 		};
 
-		console.log(c1.data);
-
 		if (c1.data.status === "True") {
 			if (this.state.status === false) {
 				this.setState({
@@ -92,9 +90,7 @@ class Chart extends React.Component {
 		if (this.state.brush.endIndex >= this.state.data.length * 0.9) {
 			this.setState({
 				brush: {
-					// startIndex: this.state.data.startIndex ,
 					startIndex: this.state.data.length > 60 ? this.state.data.length - 60 : 0,
-					// this.state.data.length - 20,
 					endIndex: this.state.data.length
 				}
 			})
@@ -140,17 +136,9 @@ Chart.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
 
-/* Map state to props */
-const store = (state, props) => ({});
-
-/* Chart actions */
-const actions = {};
-
 /* Component configurations */
 const options = {
 	styles,
-	store,
-	actions
 };
 
 /* Module exports */

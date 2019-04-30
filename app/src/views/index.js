@@ -20,12 +20,6 @@ const styles = (theme) => ({
 	},
 });
 
-/* Map state to props */
-const store = (state, props) => ({});
-
-/* View actions */
-const actions = {};
-
 /* View definition */
 const View = (props) => {
 	const { classes } = props;
@@ -52,8 +46,6 @@ View.propTypes = {
 /* View configurations */
 const options = {
 	styles,
-	store,
-	actions
 };
 
 /* Module exports */

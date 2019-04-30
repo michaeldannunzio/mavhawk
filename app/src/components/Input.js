@@ -19,13 +19,6 @@ class Input extends React.Component {
 
 		return (
 			<div className={classes.inputBase}>
-				{/* <TextField
-          id="cell"
-          label={label}
-					className={classes.inputField}
-					margin='normal'
-          variant="outlined"
-				/> */}
 				<TextField
           id={this.props.id}
           label={label}
@@ -33,11 +26,7 @@ class Input extends React.Component {
           onChange={this.props.changeVoltage}
           type="number"
           className={classes.inputField}
-          InputLabelProps={{
-						shrink: true,
-						// endAdornment={<InputAdornment position="end">Kg</InputAdornment>}
-            // inputProps={{
-          }}
+          InputLabelProps={{shrink: true}}
           margin="normal"
           variant="outlined"
         />
@@ -64,17 +53,9 @@ const styles = (theme) => ({
 	},
 });
 
-/* Map state to props */
-const store = (state, props) => ({});
-
-/* Component actions */
-const actions = {};
-
 /* Component configurations */
 const options = {
 	styles,
-	store,
-	actions
 };
 
 /* Module exports */

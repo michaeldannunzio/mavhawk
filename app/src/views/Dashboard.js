@@ -44,7 +44,6 @@ const styles = (theme) => ({
 		width: '100%',
 		flexGrow: 1,
 		padding: theme.spacing.unit * 3,
-		// border: 'red 2px solid',
 		margin: 0,
 		marginTop: 50,
 	},
@@ -53,17 +52,9 @@ const styles = (theme) => ({
 	}
 });
 
-/* Map state to props */
-const store = (state, props) => ({});
-
-/* Dashboard actions */
-const actions = {};
-
 /* Dashboard configurations */
 const options = {
 	styles,
-	store,
-	actions
 };
 
 /* Module exports */

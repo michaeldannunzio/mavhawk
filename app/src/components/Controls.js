@@ -29,9 +29,6 @@ class Controls extends React.Component {
 				<Slider id={1} />
 				<Slider id={2} />
 				<Slider id={3} />
-				{/* <Input id={1} /> */}
-				{/* <Input id={2} /> */}
-				{/* <Input id={3} /> */}
 			</Card>
 		);
 	}
@@ -42,17 +39,9 @@ Controls.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
 
-/* Map state to props */
-const store = (state, props) => ({});
-
-/* Component actions */
-const actions = {};
-
 /* Component configurations */
 const options = {
 	styles,
-	store,
-	actions
 };
 
 /* Module exports */

@@ -26,14 +26,6 @@ import axios from 'axios';
 import { configure } from '../util';
 import { logo } from '../assets';
 import Button from './Button';
-import {
-  startSession,
-  endSession,
-  importSession,
-  exportSession,
-  togglePower,
-  // toggleVideo
-} from '../store';
 
 
 /* Component definition */
@@ -69,7 +61,6 @@ class Appbar extends React.Component {
   };
 
   shutdownApp = () => {
-    // window.setTimeout(() => axios.post('/exit'), 5000);
     axios.post('/shutdown');
   };
   
@@ -120,12 +111,10 @@ class Appbar extends React.Component {
         </div>
         <Divider />
         <div className={classes.divider}>
-          {/* <Button onClick={this.props.togglePower} color='rgb(250, 250, 250)' textColor='rgb(20, 20, 20)'> */}
           <Button onClick={this.togglePower} color='rgb(255, 255, 255)' textColor='rgb(20, 20, 20)'>
             <PowerSettingsNewRounded className={classes.icon} style={{fill: !this.state.power ? 'rgb(255, 0, 0)' : 'rgb(0, 255, 0)' }} />
             Power
           </Button>
-          {/* <Button onClick={this.props.toggleVideo} color='rgb(250, 250, 250)' textColor='rgb(20, 20, 20)'> */}
           <Button onClick={this.toggleVideo} color='rgb(255, 255, 255)' textColor='rgb(20, 20, 20)'>
             <VideocamRounded className={classes.icon}  style={{fill: !this.state.recording ? 'rgb(255, 0, 0)' : 'rgb(0, 255, 0)' }} />
             Record
@@ -283,23 +272,9 @@ const styles = theme => ({
   },
 });
 
-/* Map state to props */
-const store = (state, props) => ({});
-
-/* Component actions */
-const actions = {
-  startSession,
-  endSession,
-  importSession,
-  exportSession,
-  togglePower
-};
-
 /* Component configurations */
 const options = {
   styles,
-	store,
-	actions
 };
 
 /* Module exports */
