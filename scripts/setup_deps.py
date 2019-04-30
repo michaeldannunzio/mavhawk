@@ -11,6 +11,8 @@ for m in MODULES:
 	call('pip install {m}'.format(m).split())
 
 call('git clone {}'.format(OPENCV_REPO).split())
+call('sudo apt-get update'.split())
+call('sudo apt-get upgrade'.split())
 call('sudo apt install libgtk-3-dev libcanberra-gtk3-dev'.split())
 call('sudo apt install libtiff-dev zlib1g-dev'.split())
 call('sudo apt install libjpeg-dev libpng-dev'.split())
@@ -23,3 +25,8 @@ call('echo "export LD_LIBRARY_PATH=/opt/opencv-4.0.0/lib:$LD_LIBRARY_PATH" >> .b
 call('source .bashrc'.split())
 call('sudo python /opt/opencv-4.0.0/python/setup.py develop'.split())
 call('sudo python3 /opt/opencv-4.0.0/python/setup.py develop'.split())
+
+call('sudo apt-get install dnsmasq hostapd'.split())
+call('sudo systemctl stop dnsmasq'.split())
+call('sudo systemctl stop hostapd'.split())
+call('sudo reboot'.split())
