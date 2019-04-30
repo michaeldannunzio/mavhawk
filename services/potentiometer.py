@@ -50,7 +50,6 @@ class Potentiometer(object):
 		GPIO.output(self.kwargs['CS'], True)
 	
 	def shutdown(self, *args, **kwargs):
-		self(value=0)
 		GPIO.cleanup()
 		print(self.__name__ + ' has shutdown.')
 

@@ -44,6 +44,7 @@ class VoltageController(object):
 		})
 
 	def shutdown(self, *args, **kwargs):
+		self.potentiometer.shutdown()
 		print(self.__name__ + ' has shutdown.')
 
 	def calculateInputVoltage(self, outputVoltage):
