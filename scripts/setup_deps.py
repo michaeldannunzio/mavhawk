@@ -7,9 +7,17 @@ MODULES = [
 
 OPENCV_REPO = 'https://github.com/michaeldannunzio/Cross-Compile-OpenCV-Raspbian.git'
 
+# install python dependencies
 for m in MODULES:
 	call('pip install {m}'.format(m).split())
 
+# install node and npm
+call('wget https://nodejs.org/dist/v8.9.0/node-v8.9.0-linux-armv6l.tar.gz'.split())
+call('tar -xzf node-v8.9.0-linux-armv6l.tar.gz'.split())
+call('cd node-v6.11.1-linux-armv6l/'.split())
+call('sudo cp -R * /usr/local/'.split())
+
+# install opencv 
 call('git clone {}'.format(OPENCV_REPO).split())
 call('sudo apt-get update'.split())
 call('sudo apt-get upgrade'.split())
@@ -26,6 +34,7 @@ call('source .bashrc'.split())
 call('sudo python /opt/opencv-4.0.0/python/setup.py develop'.split())
 call('sudo python3 /opt/opencv-4.0.0/python/setup.py develop'.split())
 
+# setup rpi for standalone network
 call('sudo apt-get install dnsmasq hostapd'.split())
 call('sudo systemctl stop dnsmasq'.split())
 call('sudo systemctl stop hostapd'.split())
