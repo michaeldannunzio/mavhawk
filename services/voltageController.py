@@ -9,7 +9,6 @@ class VoltageController(object):
 	settings = {
 		'vcc': 5,
 		'stepUpValue': 1644,
-		'stepUpIntercept': 141,
 		'pins': [
 			{ 'CS': 21, 'CLK': 26, 'MOSI': 20 },
 			{ 'CS': 19, 'CLK': 16, 'MOSI': 13 },
@@ -33,7 +32,7 @@ class VoltageController(object):
 
 	def __call__(self, *args, **kwargs):
 		if self.kwargs['flask'].request.method == 'POST':
-			self.outputVoltage = round(float(self.kwargs['flask'].request.data.rstrip('}').split(':')[-1]), 2)
+			self.outputVoltage = round(float(self.kwargs['flask'].request.data.rstrip('}').split(':')[-1]), 2) * 1000
 			self.inputVoltage = self.calculateInputVoltage(self.outputVoltage)
 			self.value = self.calculateWiperValue(self.inputVoltage)
 			self.potentiometer(value=self.value)
@@ -48,10 +47,10 @@ class VoltageController(object):
 		print(self.__name__ + ' has shutdown.')
 
 	def calculateInputVoltage(self, outputVoltage):
-		return (outputVoltage + self.settings['stepUpIntercept']) / self.settings['stepUpValue']
+		return (outputVoltage / self.settings['stepUpValue'])
 
-	def calculateWiperValue(self, voltage):
-		value = 128 - (25.6 * ((voltage * 1000) / self.settings['stepUpValue']))
+	def calculateWiperValue(self, inputVoltage):
+		value = 128 - (25.6 * inputVoltage)
 		return int(value)
 
 	def getTime(self):
