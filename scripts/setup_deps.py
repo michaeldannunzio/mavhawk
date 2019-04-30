@@ -1,3 +1,4 @@
+import os
 from subprocess import call
 from shutil import rmtree
 
@@ -17,6 +18,12 @@ call('tar -xzf node-v8.9.0-linux-armv6l.tar.gz'.split())
 call('cd node-v6.11.1-linux-armv6l/'.split())
 call('sudo cp -R * /usr/local/'.split())
 
+# build frontend application
+os.chdir('app')
+call('npm install'.split())
+call('npm run build'.split())
+os.chdir('..')
+
 # install opencv 
 call('git clone {}'.format(OPENCV_REPO).split())
 call('sudo apt-get update'.split())
@@ -34,7 +41,7 @@ call('source .bashrc'.split())
 call('sudo python /opt/opencv-4.0.0/python/setup.py develop'.split())
 call('sudo python3 /opt/opencv-4.0.0/python/setup.py develop'.split())
 
-# setup rpi for standalone network
+# install dependencies to make RPi standalone network and reboot
 call('sudo apt-get install dnsmasq hostapd'.split())
 call('sudo systemctl stop dnsmasq'.split())
 call('sudo systemctl stop hostapd'.split())

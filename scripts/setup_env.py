@@ -16,7 +16,7 @@ with open('/etc/dnsmasq.conf', 'w') as file:
 with open('/etc/hostapd/hostapd.conf', 'w') as file:
 	file.write('interface=wlan0')
 	file.write('driver=nl80211')
-	file.write('ssid=NameOfNetwork')
+	file.write('ssid=Mavhawk')
 	file.write('hw_mode=g')
 	file.write('channel=7')
 	file.write('wmm_enabled=0')
@@ -24,7 +24,7 @@ with open('/etc/hostapd/hostapd.conf', 'w') as file:
 	file.write('auth_algs=1')
 	file.write('ignore_broadcast_ssid=0')
 	file.write('wpa=2')
-	file.write('wpa_passphrase=AardvarkBadgerHedgehog')
+	file.write('wpa_passphrase=mavhawk')
 	file.write('wpa_key_mgmt=WPA-PSK')
 	file.write('wpa_pairwise=TKIP')
 	file.write('rsn_pairwise=CCMP')
