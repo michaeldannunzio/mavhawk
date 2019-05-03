@@ -21,6 +21,7 @@ import PowerSettingsNewRounded from '@material-ui/icons/PowerSettingsNewRounded'
 import VideocamRounded from '@material-ui/icons/VideocamRounded';
 import HighlightOffRounded from '@material-ui/icons/HighlightOffRounded';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 /* Source imports */
 import { configure } from '../util';
@@ -160,9 +161,11 @@ class Appbar extends React.Component {
 							Dashboard
 						</Typography>
 						<img className={classes.logo} src={logo} alt='logo' />
+            <Link path='/exit'>
               <IconButton className={classes.shutdown} onClick={this.shutdownApp}>
                 <HighlightOffRounded className={classes.shutdownIcon} />
               </IconButton>
+            </Link>
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer}>
