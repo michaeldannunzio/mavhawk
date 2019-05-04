@@ -21,9 +21,9 @@ class Potentiometer(object):
 		GPIO.setup(self.kwargs['CLK'], GPIO.OUT)
 		GPIO.setup(self.kwargs['MOSI'], GPIO.OUT)
 
-		GPIO.output(self.kwargs['CS'], False)
 		GPIO.output(self.kwargs['CLK'], False)
 		GPIO.output(self.kwargs['MOSI'], False)
+		GPIO.output(self.kwargs['CS'], False)
 		
 		GPIO.output(self.kwargs['CS'], True)
 		GPIO.output(self.kwargs['CLK'], False)

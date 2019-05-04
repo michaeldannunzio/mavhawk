@@ -161,7 +161,7 @@ class Appbar extends React.Component {
 							Dashboard
 						</Typography>
 						<img className={classes.logo} src={logo} alt='logo' />
-            <Link path='/exit'>
+            <Link to='/exit'>
               <IconButton className={classes.shutdown} onClick={this.shutdownApp}>
                 <HighlightOffRounded className={classes.shutdownIcon} />
               </IconButton>
